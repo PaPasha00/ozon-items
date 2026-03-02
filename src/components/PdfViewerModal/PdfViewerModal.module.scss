@@ -1,0 +1,363 @@
+@use '../../styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+
+  @include mobile {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  @include tablet {
+    padding: 0;
+    align-items: stretch;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: #1e293b;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  max-width: 95vw;
+  max-height: 95vh;
+  width: 900px;
+  height: 85vh;
+  overflow: hidden;
+  animation: slideUp 0.25s ease-out;
+
+  @include mobile {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  @include tablet {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  @include desktop {
+    width: 900px;
+    height: 85vh;
+    max-width: 95vw;
+    max-height: 95vh;
+    border-radius: 16px;
+  }
+
+  @media (prefers-color-scheme: light) {
+    background: #f8fafc;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.2);
+
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  @include tablet {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  @include desktop {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  @media (prefers-color-scheme: light) {
+    border-bottom-color: #e2e8f0;
+    background: #f1f5f9;
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+
+  @include mobile {
+    max-width: none;
+    white-space: normal;
+    word-break: break-word;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  @include tablet {
+    max-width: none;
+    white-space: normal;
+    word-break: break-word;
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  @include desktop {
+    max-width: 280px;
+  }
+
+  @media (prefers-color-scheme: light) {
+    color: #0f172a;
+  }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  @include mobile {
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  @include tablet {
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+}
+
+.pagination,
+.zoom {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.toolbarBtn {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  @include mobile {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+
+  @include tablet {
+    width: 34px;
+    height: 34px;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.18);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  @media (prefers-color-scheme: light) {
+    background: #e2e8f0;
+    color: #475569;
+
+    &:hover:not(:disabled) {
+      background: #cbd5e1;
+    }
+  }
+}
+
+.pageInfo,
+.scaleLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #94a3b8;
+  min-width: 4ch;
+  text-align: center;
+
+  @media (prefers-color-scheme: light) {
+    color: #64748b;
+  }
+}
+
+.closeBtn {
+  width: 40px;
+  height: 40px;
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  @include mobile {
+    width: 36px;
+    height: 36px;
+    margin-left: 0;
+  }
+
+  @include tablet {
+    width: 38px;
+    height: 38px;
+  }
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.35);
+  }
+
+  @media (prefers-color-scheme: light) {
+    background: #fee2e2;
+    color: #dc2626;
+
+    &:hover {
+      background: #fecaca;
+    }
+  }
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: #0f172a;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include mobile {
+    padding: 0.5rem;
+    overflow-x: hidden;
+  }
+
+  @include tablet {
+    padding: 0.75rem;
+    overflow-x: hidden;
+  }
+
+  @include desktop {
+    overflow-x: auto;
+  }
+
+  @media (prefers-color-scheme: light) {
+    background: #cbd5e1;
+  }
+}
+
+.pageWrap {
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.page {
+  flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+  /* Не ограничиваем ширину — она задаётся через width в react-pdf */
+  width: fit-content;
+  max-width: none;
+
+  @include mobile {
+    max-width: 100%;
+  }
+
+  @include tablet {
+    max-width: 100%;
+  }
+
+  /* Канвас внутри react-pdf не сжимать */
+  :global(.react-pdf__Page__canvas) {
+    max-width: none !important;
+  }
+
+  @media (prefers-color-scheme: light) {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.loading,
+.error {
+  padding: 3rem 2rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 1rem;
+
+  @media (prefers-color-scheme: light) {
+    color: #64748b;
+  }
+}
+
+.error {
+  color: #f87171;
+
+  @media (prefers-color-scheme: light) {
+    color: #dc2626;
+  }
+}

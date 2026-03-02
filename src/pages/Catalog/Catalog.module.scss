@@ -1,0 +1,15 @@
+@use '../../styles/variables' as *;
+
+.catalog {
+  flex: 1;
+  padding: 1.5rem 0;
+
+  h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    opacity: 0.8;
+  }
+}
