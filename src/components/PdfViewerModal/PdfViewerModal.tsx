@@ -4,7 +4,6 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import styles from './PdfViewerModal.module.scss';
 
-// Worker для pdf.js: Vite отдаёт URL через ?url
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc as string;
 
@@ -27,7 +26,6 @@ export function PdfViewerModal({ fileUrl, title, onClose }: PdfViewerModalProps)
   const isMobileWidth = containerWidth > 0 && containerWidth < MOBILE_BREAKPOINT;
   const baseWidth = containerWidth > 0 ? containerWidth : undefined;
   const zoomScale = isMobileWidth ? 1 : scale;
-  // Итоговая ширина страницы в px — передаём в Page и в обёртку, чтобы канвас не сжимался
   const pageWidthPx =
     baseWidth != null ? Math.round(baseWidth * zoomScale) : undefined;
 

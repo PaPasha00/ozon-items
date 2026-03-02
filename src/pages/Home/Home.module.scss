@@ -1,14 +1,13 @@
 @use '../../styles/variables' as *;
 
 .home {
-  flex: 1;
   padding: 0;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   margin-left: -1rem;
   margin-right: -1rem;
   width: calc(100% + 2rem);
+  min-height: min-content;
 
   @include desktop {
     margin-left: -1.5rem;
@@ -19,12 +18,72 @@
 
 .section {
   width: 100%;
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 0;
+  position: relative;
+  flex: 1;
+  min-height: min-content;
+}
+
+.searchWrap {
+  position: sticky;
+  top: calc(2rem + 10px);
+  z-index: 2;
+  padding: 0.5rem 1rem 0.75rem;
+  background: transparent;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  font-size: 0.9375rem;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  &:focus {
+    border-color: rgba(100, 108, 255, 0.6);
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  @media (prefers-color-scheme: light) {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.12);
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:focus {
+      border-color: rgba(100, 108, 255, 0.5);
+      background: rgba(0, 0, 0, 0.28);
+    }
+  }
+}
+
+.emptyState {
+  margin: 2rem 1rem;
+  text-align: center;
+  opacity: 0.7;
+  font-size: 1rem;
+
+  @include desktop {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
 }
 
 .grid {
@@ -52,5 +111,30 @@
 
   @include wide {
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+.categoryBlock {
+  padding-top: 2rem;
+
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+.categoryTitle {
+  margin: 0 0 0.75rem;
+  padding: 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: inherit;
+  opacity: 0.9;
+
+  @include desktop {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
   }
 }

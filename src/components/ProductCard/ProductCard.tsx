@@ -4,26 +4,24 @@ interface ProductCardProps {
   id: string;
   name: string;
   imageUrl?: string;
-  /** При клике открывается просмотр PDF, если передан pdfUrl */
-  pdfUrl?: string | null;
-  onOpenPdf?: (url: string, name: string) => void;
+  pdfs?: string[];
+  onOpenDocuments?: (productName: string, pdfNames: string[]) => void;
 }
 
-export function ProductCard({ name, imageUrl, pdfUrl, onOpenPdf }: ProductCardProps) {
-  const isClickable = Boolean(pdfUrl && onOpenPdf);
-
+export function ProductCard({ name, imageUrl, pdfs, onOpenDocuments }: ProductCardProps) {
+  const hasDocuments = Boolean(pdfs?.length && onOpenDocuments);
   const handleClick = () => {
-    if (pdfUrl && onOpenPdf) onOpenPdf(pdfUrl, name);
+    if (hasDocuments) onOpenDocuments!(name, pdfs!);
   };
 
   return (
     <article
       className={styles.card}
-      role={isClickable ? 'button' : undefined}
-      tabIndex={isClickable ? 0 : undefined}
-      onClick={isClickable ? handleClick : undefined}
+      role={hasDocuments ? 'button' : undefined}
+      tabIndex={hasDocuments ? 0 : undefined}
+      onClick={hasDocuments ? handleClick : undefined}
       onKeyDown={
-        isClickable
+        hasDocuments
           ? (e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();

@@ -1,11 +1,102 @@
 @use '../../styles/variables' as *;
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 1rem 1rem;
   gap: 1rem;
+  background: rgba(36, 36, 36, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+  @include desktop {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  @media (prefers-color-scheme: light) {
+    background: rgba(255, 255, 255, 0.65);
+    border-bottom-color: rgba(0, 0, 0, 0.08);
+  }
+}
+
+.rightGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  @include desktop {
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-end;
+  }
+}
+
+.searchWrap {
+  display: none;
+
+  @include desktop {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-end;
+  }
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+
+  @include desktop {
+    width: 220px;
+    min-width: 0;
+    flex-shrink: 0;
+    transition: border-color 0.2s, background 0.2s, flex 0.25s ease;
+
+    .searchWrap:focus-within & {
+      flex: 1;
+      width: auto;
+    }
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  &:focus {
+    border-color: rgba(100, 108, 255, 0.6);
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  @media (prefers-color-scheme: light) {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.12);
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:focus {
+      border-color: rgba(100, 108, 255, 0.5);
+      background: rgba(0, 0, 0, 0.28);
+    }
+  }
 }
 
 .logo {
@@ -52,6 +143,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   transition: background 0.2s, border-color 0.2s;
+  flex-shrink: 0;
 
   &:hover {
     background: rgba(255, 255, 255, 0.08);

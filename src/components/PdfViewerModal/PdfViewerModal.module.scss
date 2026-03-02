@@ -319,8 +319,6 @@
 .page {
   flex-shrink: 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-
-  /* Не ограничиваем ширину — она задаётся через width в react-pdf */
   width: fit-content;
   max-width: none;
 
@@ -332,7 +330,6 @@
     max-width: 100%;
   }
 
-  /* Канвас внутри react-pdf не сжимать */
   :global(.react-pdf__Page__canvas) {
     max-width: none !important;
   }
