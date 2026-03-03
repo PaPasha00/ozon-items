@@ -79,7 +79,7 @@ export function Home() {
     });
   };
 
-  const handleSelectDocument = (url: string, title: string) => {
+  const handleSelectDocument = (_url: string, title: string) => {
     setSearchParams((prev) => {
       const p = new URLSearchParams(prev);
       p.set('file', title);
@@ -127,7 +127,7 @@ export function Home() {
                       imageUrl={getProductImageUrl(product)}
                       description={product.description}
                       pdfs={product.pdfs}
-                      onOpenDocuments={(data) =>
+                      onOpenDocuments={(_data) =>
                         handleOpenDocuments({
                           id: product.id,
                           name: product.name,
