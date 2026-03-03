@@ -16,7 +16,13 @@ export function Header() {
     <>
       <header className={styles.header}>
         <Link to="/" className={styles.logo} aria-label="На главную">
-          <span className={styles.logoIcon}>O</span>
+          <img
+            src="/LogoKO.jpg"
+            alt=""
+            className={styles.logoImage}
+            width={40}
+            height={40}
+          />
           <span className={styles.logoText}>{config.siteName}</span>
         </Link>
         <div className={styles.rightGroup}>

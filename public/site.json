@@ -1,7 +1,7 @@
 {
-  "siteName": "ozon-items",
+  "siteName": "KO!MAG",
   "about": {
-    "description": "Мы помогаем продавцам и маркетплейсам эффективно управлять товарами и продвигать бренды. Наша команда создаёт инструменты, которые экономят время и увеличивают продажи.",
+    "description": "Это крупный магазин, который прошёл специальную проверку. Покупатели высоко оценивают качество товаров.",
     "advantagesHeading": "Наши преимущества",
     "advantages": [
       {
@@ -19,7 +19,7 @@
     ],
     "contactsHeading": "Контакты",
     "contacts": [
-      {"label": "Email", "value": "hello@ozon-items.ru", "href": "mailto:hello@ozon-items.ru"},
+      {"label": "Email", "value": "KO!MAG@ozon-items.ru", "href": "mailto:hello@ozon-items.ru"},
       {"label": "Телефон", "value": "+7 (999) 123-45-67", "href": "tel:+79991234567"},
       {"label": "Адрес", "value": "Москва, ул. Примерная, д. 1", "href": null}
     ],

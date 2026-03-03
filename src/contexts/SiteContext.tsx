@@ -65,7 +65,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
         return res.json();
       })
       .then((data: SiteConfig) => {
-        setConfig({
+        const next = {
           siteName: data.siteName ?? defaultSite.siteName,
           about: {
             ...defaultSite.about,
@@ -74,7 +74,9 @@ export function SiteProvider({ children }: { children: ReactNode }) {
             contacts: Array.isArray(data.about?.contacts) ? data.about.contacts : defaultSite.about.contacts,
             socialLinks: Array.isArray(data.about?.socialLinks) ? data.about.socialLinks : defaultSite.about.socialLinks,
           },
-        });
+        };
+        setConfig(next);
+        document.title = next.siteName;
         setError(null);
       })
       .catch((err) => {

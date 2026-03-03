@@ -123,16 +123,12 @@
   }
 }
 
-.logoIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  background: rgba(100, 108, 255, 0.9);
-  color: #fff;
+.logoImage {
+  display: block;
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
   border-radius: 8px;
-  font-size: 1.125rem;
 }
 
 .logoText {
