@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSearch } from '../../contexts/SearchContext';
 import { useSiteConfig } from '../../contexts/SiteContext';
 import { SlideMenu } from '../SlideMenu';
@@ -7,6 +7,8 @@ import styles from './Header.module.scss';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+  const isHomePage = pathname === '/';
   const { searchQuery, setSearchQuery } = useSearch();
   const { config } = useSiteConfig();
 
@@ -18,16 +20,18 @@ export function Header() {
           <span className={styles.logoText}>{config.siteName}</span>
         </Link>
         <div className={styles.rightGroup}>
-          <div className={styles.searchWrap}>
-            <input
-              type="search"
-              className={styles.searchInput}
-              placeholder="Поиск по названию, описанию, категории..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              aria-label="Поиск товаров"
-            />
-          </div>
+          {isHomePage && (
+            <div className={styles.searchWrap}>
+              <input
+                type="search"
+                className={styles.searchInput}
+                placeholder="Поиск по названию, описанию, категории..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                aria-label="Поиск товаров"
+              />
+            </div>
+          )}
           <button
             type="button"
             className={styles.menuButton}

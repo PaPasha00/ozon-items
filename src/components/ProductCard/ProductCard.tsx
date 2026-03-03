@@ -1,17 +1,26 @@
 import styles from './ProductCard.module.scss';
 
+export interface ProductCardDocumentsData {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  description?: string;
+  pdfs: string[];
+}
+
 interface ProductCardProps {
   id: string;
   name: string;
   imageUrl?: string;
+  description?: string;
   pdfs?: string[];
-  onOpenDocuments?: (productName: string, pdfNames: string[]) => void;
+  onOpenDocuments?: (data: ProductCardDocumentsData) => void;
 }
 
-export function ProductCard({ name, imageUrl, pdfs, onOpenDocuments }: ProductCardProps) {
+export function ProductCard({ id, name, imageUrl, description, pdfs, onOpenDocuments }: ProductCardProps) {
   const hasDocuments = Boolean(pdfs?.length && onOpenDocuments);
   const handleClick = () => {
-    if (hasDocuments) onOpenDocuments!(name, pdfs!);
+    if (hasDocuments) onOpenDocuments!({ id, name, imageUrl, description, pdfs: pdfs! });
   };
 
   return (

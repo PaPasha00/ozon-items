@@ -96,29 +96,31 @@ export function PdfViewerModal({ fileUrl, title, onClose }: PdfViewerModalProps)
                 ›
               </button>
             </div>
-            <div className={styles.zoom}>
-              <button
-                type="button"
-                className={styles.toolbarBtn}
-                onClick={zoomOut}
-                disabled={scale <= 0.5 || isMobileWidth}
-                aria-label="Уменьшить"
-              >
-                −
-              </button>
-              <span className={styles.scaleLabel}>
-                {isMobileWidth ? 'По ширине' : `${Math.round(scale * 100)}%`}
-              </span>
-              <button
-                type="button"
-                className={styles.toolbarBtn}
-                onClick={zoomIn}
-                disabled={scale >= 3 || isMobileWidth}
-                aria-label="Увеличить"
-              >
-                +
-              </button>
-            </div>
+            {!isMobileWidth && (
+              <div className={styles.zoom}>
+                <button
+                  type="button"
+                  className={styles.toolbarBtn}
+                  onClick={zoomOut}
+                  disabled={scale <= 0.5}
+                  aria-label="Уменьшить"
+                >
+                  −
+                </button>
+                <span className={styles.scaleLabel}>
+                  {Math.round(scale * 100)}%
+                </span>
+                <button
+                  type="button"
+                  className={styles.toolbarBtn}
+                  onClick={zoomIn}
+                  disabled={scale >= 3}
+                  aria-label="Увеличить"
+                >
+                  +
+                </button>
+              </div>
+            )}
             <button
               type="button"
               className={styles.closeBtn}

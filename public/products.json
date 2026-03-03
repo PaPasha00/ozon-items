@@ -1,5 +1,5 @@
 [
-  {"id": "1", "name": "Путешествия", "imageUrl": "testPhoto.webp", "category": "Путеводители", "description": "Гайды и маршруты для съёмки в поездках", "pdfs": ["test.pdf"]},
+  {"id": "1", "name": "Путешествия, Путешествия, Путешествия, Путешествия", "imageUrl": "testPhoto.webp", "category": "Путеводители", "description": "Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках", "pdfs": ["test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf"]},
   {"id": "2", "name": "Фото советы", "imageUrl": "testPhoto.webp", "category": "Путеводители", "description": "Советы по композиции и настройкам камеры", "pdfs": ["test.pdf"]},
   {"id": "3", "name": "Canon", "imageUrl": "testPhoto.webp", "category": "Камеры и объективы", "description": "Зеркальные и беззеркальные камеры Canon", "pdfs": ["test.pdf"]},
   {"id": "4", "name": "Объективы", "imageUrl": "testPhoto.webp", "category": "Камеры и объективы", "description": "Сменные объективы для камер", "pdfs": ["test.pdf"]},

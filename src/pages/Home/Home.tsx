@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import { ProductCard, PdfViewerModal, DocumentsModal } from '../../components';
 import { useSearch } from '../../contexts/SearchContext';
@@ -7,25 +8,88 @@ import { getProductImageUrl, getProductsByCategory, filterProducts } from '../..
 import styles from './Home.module.scss';
 
 export function Home() {
-  const [documentsModal, setDocumentsModal] = useState<{ productName: string; pdfs: string[] } | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [documentsModal, setDocumentsModal] = useState<{
+    productId: string;
+    productName: string;
+    pdfs: string[];
+    imageUrl?: string;
+    description?: string;
+  } | null>(null);
   const [pdfView, setPdfView] = useState<{ url: string; title: string } | null>(null);
   const { searchQuery, setSearchQuery } = useSearch();
   const { displayProducts, loading, error } = useProducts();
   const filtered = filterProducts(displayProducts, searchQuery);
   const byCategory = getProductsByCategory(filtered);
 
-  const handleOpenDocuments = (productName: string, pdfs: string[]) => {
-    setDocumentsModal({ productName, pdfs });
+  useEffect(() => {
+    if (loading) return;
+    const productId = searchParams.get('product');
+    const file = searchParams.get('file');
+    if (!productId) {
+      setDocumentsModal(null);
+      setPdfView(null);
+      return;
+    }
+    const product = displayProducts.find((p) => p.id === productId);
+    if (!product) {
+      setDocumentsModal(null);
+      setPdfView(null);
+      return;
+    }
+    setDocumentsModal({
+      productId: product.id,
+      productName: product.name,
+      pdfs: product.pdfs ?? [],
+      imageUrl: getProductImageUrl(product),
+      description: product.description,
+    });
+    if (file && product.pdfs?.includes(file)) {
+      setPdfView({ url: `/${file}`, title: file });
+    } else {
+      setPdfView(null);
+    }
+  }, [searchParams, displayProducts, loading]);
+
+  const handleOpenDocuments = (data: {
+    id: string;
+    name: string;
+    imageUrl?: string;
+    description?: string;
+    pdfs: string[];
+  }) => {
+    setSearchParams((prev) => {
+      const p = new URLSearchParams(prev);
+      p.set('product', data.id);
+      p.delete('file');
+      return p;
+    });
   };
 
-  const handleCloseDocuments = () => setDocumentsModal(null);
+  const handleCloseDocuments = () => {
+    setSearchParams((prev) => {
+      const p = new URLSearchParams(prev);
+      p.delete('product');
+      p.delete('file');
+      return p;
+    });
+  };
 
   const handleSelectDocument = (url: string, title: string) => {
-    setDocumentsModal(null);
-    setPdfView({ url, title });
+    setSearchParams((prev) => {
+      const p = new URLSearchParams(prev);
+      p.set('file', title);
+      return p;
+    });
   };
 
-  const handleClosePdf = () => setPdfView(null);
+  const handleClosePdf = () => {
+    setSearchParams((prev) => {
+      const p = new URLSearchParams(prev);
+      p.delete('file');
+      return p;
+    });
+  };
 
   return (
     <main className={styles.home}>
@@ -53,8 +117,17 @@ export function Home() {
                       id={product.id}
                       name={product.name}
                       imageUrl={getProductImageUrl(product)}
+                      description={product.description}
                       pdfs={product.pdfs}
-                      onOpenDocuments={handleOpenDocuments}
+                      onOpenDocuments={(data) =>
+                        handleOpenDocuments({
+                          id: product.id,
+                          name: product.name,
+                          imageUrl: getProductImageUrl(product),
+                          description: product.description,
+                          pdfs: product.pdfs ?? [],
+                        })
+                      }
                     />
                   </li>
                 ))}
@@ -70,8 +143,12 @@ export function Home() {
       {documentsModal &&
         createPortal(
           <DocumentsModal
-            title={documentsModal.productName}
-            documentNames={documentsModal.pdfs}
+            card={{
+              name: documentsModal.productName,
+              imageUrl: documentsModal.imageUrl,
+              description: documentsModal.description,
+              pdfs: documentsModal.pdfs,
+            }}
             onSelect={handleSelectDocument}
             onClose={handleCloseDocuments}
           />,

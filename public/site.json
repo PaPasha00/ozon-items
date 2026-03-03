@@ -25,9 +25,9 @@
     ],
     "socialHeading": "Мы в соцсетях",
     "socialLinks": [
+      {"name": "Ozon", "href": "https://www.ozon.ru/product/kompressor-avtomobilnyy-85l-nasos-avtomobilnyy-3077643265/?oos_search=false", "icon": "OZ"},
       {"name": "Telegram", "href": "https://t.me/ozon_items", "icon": "TG"},
-      {"name": "ВКонтакте", "href": "https://vk.com/ozon_items", "icon": "VK"},
-      {"name": "Ozon", "href": "https://www.ozon.ru/product/kompressor-avtomobilnyy-85l-nasos-avtomobilnyy-3077643265/?oos_search=false", "icon": "OZ"}
+      {"name": "ВКонтакте", "href": "https://vk.com/ozon_items", "icon": "VK"}
     ]
   }
 }
