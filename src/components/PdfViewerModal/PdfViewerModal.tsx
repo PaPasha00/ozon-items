@@ -140,7 +140,9 @@ export function PdfViewerModal({ fileUrl, title, onClose }: PdfViewerModalProps)
               onLoadSuccess={onDocumentLoadSuccess}
               onLoadError={onDocumentLoadError}
               loading={
-                <div className={styles.loading}>Загрузка PDF…</div>
+                <div className={styles.loading} role="status" aria-label="Загрузка PDF">
+                  <span className={styles.loadingSpinner} />
+                </div>
               }
               error={
                 <div className={styles.error}>Не удалось загрузить документ.</div>

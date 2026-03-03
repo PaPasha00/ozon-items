@@ -1,11 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import { ProductCard, PdfViewerModal, DocumentsModal } from '../../components';
+import { ProductCard, DocumentsModal } from '../../components';
 import { useSearch } from '../../contexts/SearchContext';
 import { useProducts } from '../../contexts/ProductsContext';
 import { getProductImageUrl, getProductsByCategory, filterProducts } from '../../config/products';
 import styles from './Home.module.scss';
+
+const PdfViewerModal = lazy(() =>
+  import('../../components/PdfViewerModal').then((m) => ({ default: m.PdfViewerModal }))
+);
 
 export function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -104,7 +108,11 @@ export function Home() {
             aria-label="Поиск товаров"
           />
         </div>
-        {loading && <p className={styles.emptyState}>Загрузка…</p>}
+        {loading && (
+          <div className={styles.loadingState} role="status" aria-label="Загрузка">
+            <span className={styles.pdfLoader} />
+          </div>
+        )}
         {error && <p className={styles.emptyState}>{error}</p>}
         {!loading && !error && byCategory.size > 0 ? (
           Array.from(byCategory.entries()).map(([category, items]) => (
@@ -156,11 +164,19 @@ export function Home() {
         )}
       {pdfView &&
         createPortal(
-          <PdfViewerModal
-            fileUrl={pdfView.url}
-            title={pdfView.title}
-            onClose={handleClosePdf}
-          />,
+          <Suspense
+            fallback={
+              <div className={styles.pdfLoadingOverlay} role="status" aria-label="Загрузка документа">
+                <span className={styles.pdfLoader} />
+              </div>
+            }
+          >
+            <PdfViewerModal
+              fileUrl={pdfView.url}
+              title={pdfView.title}
+              onClose={handleClosePdf}
+            />
+          </Suspense>,
           document.body
         )}
     </main>
