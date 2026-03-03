@@ -40,7 +40,7 @@
 .searchInput {
   width: 100%;
   padding: 0.6rem 1rem;
-  font-size: 0.9375rem;
+  font-size: 16px;
   color: inherit;
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(14px);
@@ -49,6 +49,10 @@
   border-radius: 8px;
   outline: none;
   transition: border-color 0.2s, background 0.2s;
+
+  @include desktop {
+    font-size: 0.9375rem;
+  }
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.55);

@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSearch } from '../../contexts/SearchContext';
+import { useSiteConfig } from '../../contexts/SiteContext';
 import { SlideMenu } from '../SlideMenu';
 import styles from './Header.module.scss';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { searchQuery, setSearchQuery } = useSearch();
+  const { config } = useSiteConfig();
 
   return (
     <>
       <header className={styles.header}>
         <Link to="/" className={styles.logo} aria-label="На главную">
           <span className={styles.logoIcon}>O</span>
-          <span className={styles.logoText}>ozon-items</span>
+          <span className={styles.logoText}>{config.siteName}</span>
         </Link>
         <div className={styles.rightGroup}>
           <div className={styles.searchWrap}>

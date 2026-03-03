@@ -2,15 +2,16 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ProductCard, PdfViewerModal, DocumentsModal } from '../../components';
 import { useSearch } from '../../contexts/SearchContext';
-import { getProductImageUrl, getProductsForDisplay, getProductsByCategory, filterProducts } from '../../config/products';
+import { useProducts } from '../../contexts/ProductsContext';
+import { getProductImageUrl, getProductsByCategory, filterProducts } from '../../config/products';
 import styles from './Home.module.scss';
 
 export function Home() {
   const [documentsModal, setDocumentsModal] = useState<{ productName: string; pdfs: string[] } | null>(null);
   const [pdfView, setPdfView] = useState<{ url: string; title: string } | null>(null);
   const { searchQuery, setSearchQuery } = useSearch();
-  const products = getProductsForDisplay();
-  const filtered = filterProducts(products, searchQuery);
+  const { displayProducts, loading, error } = useProducts();
+  const filtered = filterProducts(displayProducts, searchQuery);
   const byCategory = getProductsByCategory(filtered);
 
   const handleOpenDocuments = (productName: string, pdfs: string[]) => {
@@ -39,7 +40,9 @@ export function Home() {
             aria-label="Поиск товаров"
           />
         </div>
-        {byCategory.size > 0 ? (
+        {loading && <p className={styles.emptyState}>Загрузка…</p>}
+        {error && <p className={styles.emptyState}>{error}</p>}
+        {!loading && !error && byCategory.size > 0 ? (
           Array.from(byCategory.entries()).map(([category, items]) => (
             <div key={category} className={styles.categoryBlock}>
               <h2 className={styles.categoryTitle}>{category}</h2>
@@ -58,11 +61,11 @@ export function Home() {
               </ul>
             </div>
           ))
-        ) : (
+        ) : !loading && !error ? (
           <p className={styles.emptyState}>
             {searchQuery.trim() ? 'Ничего не найдено' : 'Нет товаров'}
           </p>
-        )}
+        ) : null}
       </section>
       {documentsModal &&
         createPortal(

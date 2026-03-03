@@ -1,0 +1,33 @@
+{
+  "siteName": "ozon-items",
+  "about": {
+    "description": "Мы помогаем продавцам и маркетплейсам эффективно управлять товарами и продвигать бренды. Наша команда создаёт инструменты, которые экономят время и увеличивают продажи.",
+    "advantagesHeading": "Наши преимущества",
+    "advantages": [
+      {
+        "title": "Скорость",
+        "slogan": "Быстрая обработка заказов и обновление данных — вы всегда в курсе."
+      },
+      {
+        "title": "Надёжность",
+        "slogan": "Стабильная работа сервиса и сохранность ваших данных 24/7."
+      },
+      {
+        "title": "Поддержка",
+        "slogan": "Отвечаем на вопросы и помогаем настроить всё под ваши задачи."
+      }
+    ],
+    "contactsHeading": "Контакты",
+    "contacts": [
+      {"label": "Email", "value": "hello@ozon-items.ru", "href": "mailto:hello@ozon-items.ru"},
+      {"label": "Телефон", "value": "+7 (999) 123-45-67", "href": "tel:+79991234567"},
+      {"label": "Адрес", "value": "Москва, ул. Примерная, д. 1", "href": null}
+    ],
+    "socialHeading": "Мы в соцсетях",
+    "socialLinks": [
+      {"name": "Telegram", "href": "https://t.me/ozon_items", "icon": "TG"},
+      {"name": "ВКонтакте", "href": "https://vk.com/ozon_items", "icon": "VK"},
+      {"name": "Ozon", "href": "https://www.ozon.ru/product/kompressor-avtomobilnyy-85l-nasos-avtomobilnyy-3077643265/?oos_search=false", "icon": "OZ"}
+    ]
+  }
+}

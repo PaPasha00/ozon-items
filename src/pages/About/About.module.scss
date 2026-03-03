@@ -206,14 +206,6 @@
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 1;
-
-  &[data-icon='tg']::after {
-    content: 'TG';
-  }
-
-  &[data-icon='vk']::after {
-    content: 'VK';
-  }
 }
 
 .socialName {

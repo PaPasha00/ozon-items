@@ -18,4 +18,12 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding-top: calc(2rem + 10px);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.main {
+  flex: 1;
+  min-height: min-content;
 }

@@ -1,5 +1,6 @@
 export { Layout } from './Layout';
 export { Header } from './Header';
+export { Footer } from './Footer';
 export { SlideMenu } from './SlideMenu';
 export { ProductCard } from './ProductCard';
 export { PdfViewerModal } from './PdfViewerModal';
