@@ -23,12 +23,7 @@ export function getProductPdfUrl(product: ProductItem): string | null {
 }
 
 export function getProductsForDisplay(products: ProductItem[]): ProductItem[] {
-  return [
-    ...products,
-    ...products.map((p, i) => ({ ...p, id: `${p.id}-a${i}` })),
-    ...products.map((p, i) => ({ ...p, id: `${p.id}-b${i}` })),
-    ...products.map((p, i) => ({ ...p, id: `${p.id}-c${i}` })),
-  ];
+  return products;
 }
 
 export function getProductsByCategory(products: ProductItem[]): Map<string, ProductItem[]> {

@@ -1,0 +1,119 @@
+@use '../../styles/variables' as *;
+
+.faq {
+  padding: clamp(1rem, 3vw, 2rem) 0;
+  padding-top: calc(clamp(1rem, 3vw, 2rem) + 2.5rem);
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 1.5rem);
+}
+
+.title {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.9;
+  font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+
+  @media (prefers-color-scheme: light) {
+    opacity: 0.85;
+  }
+}
+
+.section {
+  margin-top: 0.5rem;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.item {
+  margin: 0;
+}
+
+.details {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: background 0.2s;
+
+  @media (prefers-color-scheme: light) {
+    background: rgba(255, 255, 255, 0.75);
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+
+    @media (prefers-color-scheme: light) {
+      background: rgba(255, 255, 255, 0.75);
+    }
+  }
+
+  &[open] {
+    background: rgba(255, 255, 255, 0.1);
+
+    @media (prefers-color-scheme: light) {
+      background: rgba(255, 255, 255, 0.75);
+    }
+  }
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: clamp(0.875rem, 2vw, 1rem) clamp(1rem, 2.5vw, 1.25rem);
+  font-size: clamp(0.9375rem, 2vw, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: 0.4em;
+    height: 0.4em;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin-right: 0.25rem;
+    opacity: 0.8;
+    transition: transform 0.2s;
+  }
+
+  .details[open] &::before {
+    transform: rotate(-135deg);
+  }
+}
+
+.answer {
+  padding: 0 clamp(1rem, 2.5vw, 1.25rem) clamp(1rem, 2.5vw, 1.25rem);
+  padding-top: 0;
+  font-size: clamp(0.875rem, 1.8vw, 0.9375rem);
+  line-height: 1.55;
+  opacity: 0.9;
+
+  @media (prefers-color-scheme: light) {
+    opacity: 0.85;
+  }
+}

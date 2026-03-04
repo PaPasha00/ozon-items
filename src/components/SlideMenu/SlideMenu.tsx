@@ -9,8 +9,8 @@ interface SlideMenuProps {
 
 const navItems = [
   { to: '/', label: 'Главная' },
-  // { to: '/catalog', label: 'Каталог' },
-  { to: '/about', label: 'О нас' },
+  { to: '/faq', label: 'Частые вопросы' },
+  { to: '/about', label: 'О магазине' },
 ];
 
 export function SlideMenu({ open, onClose }: SlideMenuProps) {
