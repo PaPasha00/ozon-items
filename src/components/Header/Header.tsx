@@ -9,7 +9,7 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const isHomePage = pathname === '/';
-  const { searchQuery, setSearchQuery } = useSearch();
+  const { searchQuery, setSearchQuery, mobileSearchOpen, setMobileSearchOpen } = useSearch();
   const { config } = useSiteConfig();
 
   return (
@@ -37,6 +37,28 @@ export function Header() {
                 aria-label="Поиск товаров"
               />
             </div>
+          )}
+          {isHomePage && (
+            <button
+              type="button"
+              className={styles.searchToggleButton}
+              onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
+              aria-label={mobileSearchOpen ? 'Скрыть поиск' : 'Открыть поиск'}
+              aria-expanded={mobileSearchOpen}
+            >
+              <span className={styles.searchToggleIcon} aria-hidden>
+                {mobileSearchOpen ? (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="20" height="20">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                  </svg>
+                )}
+              </span>
+            </button>
           )}
           <button
             type="button"

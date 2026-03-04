@@ -21,7 +21,7 @@ export function Home() {
     description?: string;
   } | null>(null);
   const [pdfView, setPdfView] = useState<{ url: string; title: string } | null>(null);
-  const { searchQuery, setSearchQuery } = useSearch();
+  const { searchQuery, setSearchQuery, mobileSearchOpen } = useSearch();
   const { displayProducts, loading, error } = useProducts();
   const filtered = filterProducts(displayProducts, searchQuery);
   const byCategory = getProductsByCategory(filtered);
@@ -98,15 +98,19 @@ export function Home() {
   return (
     <main className={styles.home}>
       <section className={styles.section}>
-        <div className={styles.searchWrap}>
-          <input
-            type="search"
-            className={styles.searchInput}
-            placeholder="Поиск по названию, описанию, категории..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            aria-label="Поиск товаров"
-          />
+        <div
+          className={`${styles.searchWrap} ${mobileSearchOpen ? styles.mobileSearchVisible : ''}`}
+        >
+          {mobileSearchOpen && (
+            <input
+              type="search"
+              className={styles.searchInput}
+              placeholder="Поиск по названию, описанию, категории..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              aria-label="Поиск товаров"
+            />
+          )}
         </div>
         {loading && (
           <div className={styles.loadingState} role="status" aria-label="Загрузка">
