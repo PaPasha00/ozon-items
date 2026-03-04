@@ -171,12 +171,9 @@
   justify-content: center;
   padding-top: 50px;
   box-sizing: border-box;
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
-
-  @media (prefers-color-scheme: light) {
-    background: rgba(255, 255, 255, 0.9);
-  }
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .pdfLoader {
