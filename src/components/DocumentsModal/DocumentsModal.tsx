@@ -1,3 +1,4 @@
+import { useTheme } from '../../contexts/ThemeContext';
 import styles from './DocumentsModal.module.scss';
 
 export interface DocumentsModalCardData {
@@ -14,6 +15,7 @@ export interface DocumentsModalProps {
 }
 
 export function DocumentsModal({ card, onSelect, onClose }: DocumentsModalProps) {
+  const { theme } = useTheme();
   const { name, imageUrl, description, pdfs } = card;
 
   const handleSelect = (fileName: string) => {
@@ -23,6 +25,7 @@ export function DocumentsModal({ card, onSelect, onClose }: DocumentsModalProps)
   return (
     <div
       className={styles.overlay}
+      data-theme={theme}
       role="dialog"
       aria-modal="true"
       aria-label={`Документы: ${name}`}

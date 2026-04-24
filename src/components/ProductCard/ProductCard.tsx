@@ -14,18 +14,30 @@ interface ProductCardProps {
   imageUrl?: string;
   description?: string;
   pdfs?: string[];
+  /** «Полка» — плотная карточка для горизонтального ряда (как в витринных макетах) */
+  variant?: 'default' | 'shelf';
   onOpenDocuments?: (data: ProductCardDocumentsData) => void;
 }
 
-export function ProductCard({ id, name, imageUrl, description, pdfs, onOpenDocuments }: ProductCardProps) {
+export function ProductCard({
+  id,
+  name,
+  imageUrl,
+  description,
+  pdfs,
+  variant = 'default',
+  onOpenDocuments,
+}: ProductCardProps) {
   const hasDocuments = Boolean(pdfs?.length && onOpenDocuments);
   const handleClick = () => {
     if (hasDocuments) onOpenDocuments!({ id, name, imageUrl, description, pdfs: pdfs! });
   };
 
+  const cardClass = variant === 'shelf' ? `${styles.card} ${styles.cardShelf}` : styles.card;
+
   return (
     <article
-      className={styles.card}
+      className={cardClass}
       role={hasDocuments ? 'button' : undefined}
       tabIndex={hasDocuments ? 0 : undefined}
       onClick={hasDocuments ? handleClick : undefined}

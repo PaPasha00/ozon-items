@@ -3,6 +3,8 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from '
 export interface FaqItem {
   question: string;
   answer: string;
+  /** Подзаголовок группы (например «Оплата») */
+  section?: string;
 }
 
 interface FaqContextValue {

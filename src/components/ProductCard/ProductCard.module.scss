@@ -5,30 +5,29 @@
   flex-direction: column;
   height: 100%;
   min-height: 0;
-  background: #1a1a1a;
-  border-radius: 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  transition: background 0.2s;
+  transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
   cursor: default;
 
   &:hover {
-    background: #252525;
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-text-subtle);
   }
 
   &[role='button'] {
     cursor: pointer;
-    &:hover {
-      background: #2e2e2e;
-    }
-  }
 
-  @media (prefers-color-scheme: light) {
-    background: #f0f0f0;
     &:hover {
-      background: #e8e8e8;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
-    &[role='button']:hover {
-      background: #e0e0e0;
+
+    &:active {
+      transform: translateY(0);
     }
   }
 }
@@ -39,6 +38,7 @@
   aspect-ratio: 544 / 725;
   flex-shrink: 0;
   overflow: hidden;
+  background: var(--color-surface-2);
 }
 
 .image {
@@ -50,7 +50,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0;
   margin: 0;
 }
 
@@ -60,19 +60,33 @@
   bottom: 0;
   left: 0;
   right: 0;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-
-  @media (prefers-color-scheme: dark) {
-    background: linear-gradient(135deg, #334155 0%, #475569 100%);
-  }
+  background: linear-gradient(145deg, var(--color-surface-2) 0%, var(--color-border) 100%);
 }
 
 .name {
   flex-shrink: 0;
-  padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 12px);
+  padding: clamp(0.65rem, 1.6vw, 0.9rem) clamp(0.75rem, 2vw, 1rem);
   font-size: clamp(0.8125rem, 2vw, 0.9375rem);
-  font-weight: 500;
-  line-height: 1.3;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.35;
   margin: 0;
+  color: var(--color-text);
+}
+
+/* Витрина: 3:4, компактный текст, 2 строки */
+.cardShelf {
+  .imageWrap {
+    aspect-ratio: 3 / 4;
+  }
+
+  .name {
+    font-size: clamp(0.75rem, 1.8vw, 0.875rem);
+    line-height: 1.3;
+    min-height: 2.6em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding: 0.6rem 0.65rem 0.7rem;
+  }
 }

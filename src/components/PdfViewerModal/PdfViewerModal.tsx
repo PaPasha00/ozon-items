@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
+import { useTheme } from '../../contexts/ThemeContext';
 import styles from './PdfViewerModal.module.scss';
 
 import workerSrc from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
@@ -16,6 +17,7 @@ interface PdfViewerModalProps {
 }
 
 export function PdfViewerModal({ fileUrl, title, onClose }: PdfViewerModalProps) {
+  const { theme } = useTheme();
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1);
@@ -64,6 +66,7 @@ export function PdfViewerModal({ fileUrl, title, onClose }: PdfViewerModalProps)
   return (
     <div
       className={styles.overlay}
+      data-theme={theme}
       role="dialog"
       aria-modal="true"
       aria-label={title || 'Просмотр PDF'}

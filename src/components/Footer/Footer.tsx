@@ -15,7 +15,7 @@ export function Footer() {
           </Link>
         )}
         {!isFaqPage && (
-          <Link to="/faq" className={styles.aboutLink}>
+          <Link to="/#faq" className={styles.aboutLink}>
             Частые вопросы
           </Link>
         )}

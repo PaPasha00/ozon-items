@@ -6,46 +6,48 @@ export function Faq() {
 
   if (loading) {
     return (
-      <main className={styles.faq}>
-        <div className={styles.container}>
-          <h1 className={styles.title}>Частые вопросы</h1>
-          <p className={styles.description}>Загрузка…</p>
+      <div className={styles.faq}>
+        <div className={styles.inner}>
+          <h1 className={styles.title}>Вопросы и ответы</h1>
+          <p className={styles.status}>Загрузка…</p>
         </div>
-      </main>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <main className={styles.faq}>
-        <div className={styles.container}>
-          <h1 className={styles.title}>Частые вопросы</h1>
-          <p className={styles.description}>{error}</p>
+      <div className={styles.faq}>
+        <div className={styles.inner}>
+          <h1 className={styles.title}>Вопросы и ответы</h1>
+          <p className={styles.status}>{error}</p>
         </div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className={styles.faq}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>Частые вопросы</h1>
-        <section className={styles.section} aria-label="Список вопросов и ответов">
-          <dl className={styles.list}>
+    <div className={styles.faq}>
+      <div className={styles.inner}>
+        <h1 className={styles.title}>Вопросы и ответы</h1>
+        {items.length > 0 ? (
+          <div className={styles.panel} role="region" aria-label="Список вопросов">
             {items.map((item, index) => (
-              <div key={index} className={styles.item}>
-                <details className={styles.details}>
-                  <summary className={styles.summary}>{item.question}</summary>
+              <div key={`${item.question}-${index}`} className={styles.row}>
+                <details className={styles.details} name="faq">
+                  <summary className={styles.summary}>
+                    <span className={styles.summaryText}>{item.question}</span>
+                    <span className={styles.summaryChevron} aria-hidden />
+                  </summary>
                   <div className={styles.answer}>{item.answer}</div>
                 </details>
               </div>
             ))}
-          </dl>
-        </section>
-        {items.length === 0 && (
-          <p className={styles.description}>Пока нет добавленных вопросов.</p>
+          </div>
+        ) : (
+          <p className={styles.status}>Пока нет вопросов.</p>
         )}
       </div>
-    </main>
+    </div>
   );
 }

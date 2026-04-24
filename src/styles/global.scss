@@ -1,41 +1,22 @@
+@use 'tokens';
 @use 'variables' as *;
-
-:root {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-weight: 500;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  --page-bg: #242424;
-  --overlay-bg: rgba(36, 36, 36, 0.88);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-
-  /* Паттерн фона (тёмная тема по умолчанию) */
-  --pattern-size: 300px;
-  --pattern-c1: #242424;
-  --pattern-c2: #2d2d2d;
-  --pattern-c3: #1a1a1a;
-}
 
 html {
   min-height: 100%;
-  --s: var(--pattern-size);
-  --c1: var(--pattern-c1);
-  --c2: var(--pattern-c2);
-  --c3: var(--pattern-c3);
-
-  background:
-    repeating-conic-gradient(from 30deg, #0000 0 120deg, var(--c3) 0 50%)
-      calc(var(--s) / 2) calc(var(--s) * tan(30deg) / 2),
-    repeating-conic-gradient(from 30deg, var(--c1) 0 60deg, var(--c2) 0 120deg, var(--c3) 0 50%);
-  background-size: var(--s) calc(var(--s) * tan(30deg));
-  background-color: var(--page-bg);
+  background-color: var(--color-page);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
   min-width: 320px;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
+  color: var(--color-text);
 }
 
 #root {
@@ -45,15 +26,10 @@ body {
   overflow: hidden;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    --page-bg: #ffffff;
-    --overlay-bg: rgba(255, 255, 255, 0.92);
-
-    /* Светлый паттерн */
-    --pattern-c1: #ffffff;
-    --pattern-c2: #d6d6d6;
-    --pattern-c3: #ebebeb;
-  }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }

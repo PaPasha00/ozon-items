@@ -1,0 +1,303 @@
+@use '../../styles/variables' as *;
+
+.root {
+  min-width: 0;
+}
+
+.details {
+  margin: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.details[open] .summary {
+  padding-top: 1.05rem;
+  padding-bottom: 0.9rem;
+}
+
+.details[open] .body {
+  padding-top: 0.45rem;
+  padding-bottom: 1.45rem;
+}
+
+.details[open] .chevron {
+  transform: translateY(0) rotate(225deg);
+}
+
+.summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem 0.9rem;
+  min-height: 3.4rem;
+  padding: 0.75rem 1rem 0.75rem 1.15rem;
+  list-style: none;
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.thumbWrap {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-surface-elevated, var(--color-border));
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-border);
+  opacity: 0.4;
+}
+
+.titleColumn {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.productMeta {
+  margin: 0;
+  max-width: 100%;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-subtle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.productMetaText {
+  color: var(--color-text-muted);
+}
+
+.productMetaDot {
+  color: var(--color-text-subtle);
+}
+
+.title {
+  min-width: 0;
+  width: 100%;
+  line-height: 1.3;
+  text-align: left;
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.chevron {
+  flex: 0 0 auto;
+  display: block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 2px solid var(--Main, #0058bc);
+  border-bottom: 2px solid var(--Main, #0058bc);
+  transform: translateY(-0.1rem) rotate(45deg);
+  transition: transform 0.2s ease;
+  margin-left: 0.25rem;
+}
+
+.body {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  max-width: 100%;
+  padding: 0.35rem 1rem 1.2rem 1.15rem;
+}
+
+.description {
+  margin: 0 0 0.85rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.actionsBlock {
+  margin: 0;
+  padding: 0.85rem 0 0;
+  border-top: 1px solid var(--color-border);
+  max-width: 100%;
+}
+
+.body > .actionsBlock:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.actionStack {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.actionItem {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.actionRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  min-height: 2.9rem;
+  box-sizing: border-box;
+  padding: 0.65rem 0.75rem 0.65rem 0.7rem;
+  margin: 0;
+  text-align: left;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  background: var(--color-product-action-surface, #f4f5f7);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--color-product-action-surface-hover, #ebecee);
+  }
+
+  &:hover .actionLabel,
+  &:focus-visible .actionLabel,
+  &:hover .actionIcon,
+  &:focus-visible .actionIcon {
+    color: var(--Main, #0058bc);
+  }
+
+  &:hover .actionMeta,
+  &:focus-visible .actionMeta {
+    color: color-mix(in srgb, var(--Main, #0058bc) 45%, var(--color-text-subtle) 55%);
+  }
+
+  &:hover .rowChevron,
+  &:focus-visible .rowChevron {
+    color: var(--Main, #0058bc);
+    opacity: 0.9;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--Main, #0058bc);
+    outline-offset: -2px;
+  }
+}
+
+a.actionRow {
+  color: var(--color-text-muted);
+}
+
+.actionIcon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  width: 1.35rem;
+  margin-right: 0.6rem;
+  color: var(--color-text-muted);
+  transition: color 0.12s;
+}
+
+.actionGlyph {
+  display: block;
+  flex-shrink: 0;
+}
+
+.actionTextBlock {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.15rem;
+}
+
+.actionLabel {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.12s;
+}
+
+.actionMeta {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+  color: var(--color-text-subtle);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-weight: var(--font-weight-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.12s;
+}
+
+.rowChevron {
+  flex: 0 0 auto;
+  display: block;
+  width: 0.4rem;
+  height: 0.4rem;
+  margin-left: 0.5rem;
+  color: var(--color-text-muted);
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-0.05rem) rotate(-45deg);
+  opacity: 0.6;
+  transition: color 0.12s, opacity 0.12s;
+}
+
+.noFiles {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}

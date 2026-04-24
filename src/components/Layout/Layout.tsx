@@ -23,7 +23,11 @@ export function Layout() {
           <FaqProvider>
             <div className={styles.layout}>
             <Header />
-            <div ref={scrollContainerRef} className={styles.scrollContainer}>
+            <div
+              id="app-scroll-root"
+              ref={scrollContainerRef}
+              className={styles.scrollContainer}
+            >
               <main className={styles.main}>
                 <Outlet />
               </main>

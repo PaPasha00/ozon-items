@@ -7,26 +7,26 @@ export function About() {
 
   if (loading) {
     return (
-      <main className={styles.about}>
+      <div className={styles.about}>
         <div className={styles.container}>
           <p className={styles.description}>Загрузка…</p>
         </div>
-      </main>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <main className={styles.about}>
+      <div className={styles.about}>
         <div className={styles.container}>
           <p className={styles.description}>{error}</p>
         </div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className={styles.about}>
+    <div className={styles.about}>
       <div className={styles.container}>
         <section className={styles.section}>
           <h1 className={styles.title}>{siteName}</h1>
@@ -93,6 +93,6 @@ export function About() {
           </ul>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

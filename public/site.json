@@ -1,33 +1,37 @@
 {
-  "siteName": "KO!MAG",
+  "siteName": "Deltima",
   "about": {
-    "description": "Это крупный магазин, который прошёл специальную проверку. Покупатели высоко оценивают качество товаров.",
-    "advantagesHeading": "Наши преимущества",
+    "description": "Официальный витринный каталог: проверенные товары, прозрачные условия и актуальные материалы по каждой позиции. Мы сосредоточены на скорости ответа и удобстве навигации.",
+    "advantagesHeading": "Почему Deltima",
     "advantages": [
       {
-        "title": "Скорость",
-        "slogan": "Быстрая обработка заказов и обновление данных — вы всегда в курсе."
+        "title": "Актуальные данные",
+        "slogan": "Карточки и документы обновляются вместе с ассортиментом — меньше расхождений с площадкой."
       },
       {
-        "title": "Надёжность",
-        "slogan": "Стабильная работа сервиса и сохранность ваших данных 24/7."
+        "title": "Понятный каталог",
+        "slogan": "Поиск по названию, категориям и описаниям, быстрый доступ к PDF без лишних шагов."
       },
       {
-        "title": "Поддержка",
-        "slogan": "Отвечаем на вопросы и помогаем настроить всё под ваши задачи."
+        "title": "Подборка и поддержка",
+        "slogan": "Собрали ответы в разделе «Вопросы» и контакты — можно связаться удобным способом."
       }
     ],
     "contactsHeading": "Контакты",
     "contacts": [
-      {"label": "Email", "value": "KO!MAG@ozon-items.ru", "href": "mailto:hello@ozon-items.ru"},
-      {"label": "Телефон", "value": "+7 (999) 123-45-67", "href": "tel:+79991234567"},
-      {"label": "Адрес", "value": "Москва, ул. Примерная, д. 1", "href": null}
+      { "label": "Email", "value": "hello@deltima.example", "href": "mailto:hello@deltima.example" },
+      { "label": "Телефон", "value": "+7 (999) 123-45-67", "href": "tel:+79991234567" },
+      { "label": "Адрес", "value": "Москва, ул. Примерная, д. 1", "href": null }
     ],
-    "socialHeading": "Мы в соцсетях",
+    "socialHeading": "Мы в сети",
     "socialLinks": [
-      {"name": "Ozon", "href": "https://www.ozon.ru/product/kompressor-avtomobilnyy-85l-nasos-avtomobilnyy-3077643265/?oos_search=false", "icon": "OZ"},
-      {"name": "Telegram", "href": "https://t.me/ozon_items", "icon": "TG"},
-      {"name": "ВКонтакте", "href": "https://vk.com/ozon_items", "icon": "VK"}
+      {
+        "name": "Ozon",
+        "href": "https://www.ozon.ru/",
+        "icon": "OZ"
+      },
+      { "name": "Telegram", "href": "https://t.me/ozon_items", "icon": "TG" },
+      { "name": "ВКонтакте", "href": "https://vk.com/ozon_items", "icon": "VK" }
     ]
   }
 }

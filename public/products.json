@@ -1,22 +1,264 @@
 [
-  {"id": "1", "name": "Путешествия, Путешествия, Путешествия, Путешествия", "imageUrl": "testPhoto.webp", "category": "Путеводители", "description": "Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках", "pdfs": ["test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf", "test.pdf"]},
-  {"id": "2", "name": "Фото советы", "imageUrl": "testPhoto.webp", "category": "Путеводители", "description": "Советы по композиции и настройкам камеры", "pdfs": ["test.pdf"]},
-  {"id": "3", "name": "Canon", "imageUrl": "testPhoto.webp", "category": "Камеры и объективы", "description": "Зеркальные и беззеркальные камеры Canon", "pdfs": ["test.pdf"]},
-  {"id": "4", "name": "Объективы", "imageUrl": "testPhoto.webp", "category": "Камеры и объективы", "description": "Сменные объективы для камер", "pdfs": ["test.pdf"]},
-  {"id": "5", "name": "Штативы", "imageUrl": "testPhoto.webp", "category": "Аксессуары", "description": "Штативы и моноподы для стабильной съёмки", "pdfs": ["test.pdf"]},
-  {"id": "6", "name": "Сумки для фото", "imageUrl": "testPhoto.webp", "category": "Аксессуары", "description": "Рюкзаки и сумки для переноски техники", "pdfs": ["test.pdf"]},
-  {"id": "7", "name": "Освещение", "imageUrl": "testPhoto.webp", "category": "Аксессуары", "description": "Вспышки, софтбоксы и постоянный свет", "pdfs": ["test.pdf"]},
-  {"id": "8", "name": "Дроны", "imageUrl": "testPhoto.webp", "category": "Техника", "description": "Квадрокоптеры для аэросъёмки", "pdfs": ["test.pdf"]},
-  {"id": "9", "name": "Аксессуары", "imageUrl": "testPhoto.webp", "category": "Аксессуары", "description": "Чехлы, фильтры, пульты и прочее", "pdfs": ["test.pdf"]},
-  {"id": "10", "name": "Память", "imageUrl": "testPhoto.webp", "category": "Комплектующие", "description": "Карты памяти SD и CF для камер", "pdfs": ["test.pdf"]},
-  {"id": "11", "name": "Батареи", "imageUrl": "testPhoto.webp", "category": "Комплектующие", "description": "Аккумуляторы и зарядные устройства", "pdfs": ["test.pdf"]},
-  {"id": "12", "name": "Зум", "imageUrl": "testPhoto.webp", "category": "Камеры и объективы", "description": "Зум-объективы с переменным фокусным расстоянием", "pdfs": ["test.pdf"]},
-  {"id": "13", "name": "Широкоугольник", "imageUrl": "testPhoto.webp", "category": "Камеры и объективы", "description": "Широкоугольные объективы для пейзажа и интерьеров", "pdfs": ["test.pdf"]},
-  {"id": "14", "name": "Макро", "imageUrl": "testPhoto.webp", "category": "Камеры и объективы", "description": "Макрообъективы для съёмки крупным планом", "pdfs": ["test.pdf"]},
-  {"id": "15", "name": "Портрет", "imageUrl": "testPhoto.webp", "category": "Жанры съёмки", "description": "Портретная съёмка людей", "pdfs": ["test.pdf"]},
-  {"id": "16", "name": "Пейзаж", "imageUrl": "testPhoto.webp", "category": "Жанры съёмки", "description": "Съёмка природы и городских видов", "pdfs": ["test.pdf"]},
-  {"id": "17", "name": "Спорт", "imageUrl": "testPhoto.webp", "category": "Жанры съёмки", "description": "Динамичная съёмка спортивных событий", "pdfs": ["test.pdf"]},
-  {"id": "18", "name": "Видео", "imageUrl": "testPhoto.webp", "category": "Видео и звук", "description": "Видеокамеры и советы по видеосъёмке", "pdfs": ["test.pdf"]},
-  {"id": "19", "name": "Микрофоны", "imageUrl": "testPhoto.webp", "category": "Видео и звук", "description": "Микрофоны для записи звука к видео", "pdfs": ["test.pdf"]},
-  {"id": "20", "name": "Стабилизаторы", "imageUrl": "testPhoto.webp", "category": "Видео и звук", "description": "Гимбалы и стабилизаторы для камеры", "pdfs": ["test.pdf"]}
+  {
+    "id": "1",
+    "name": "Путешествия, Путешествия, Путешествия, Путешествия",
+    "imageUrl": "testPhoto.webp",
+    "category": "Путеводители",
+    "description": "Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках, Гайды и маршруты для съёмки в поездках",
+    "pdfs": [
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf",
+      "test.pdf"
+    ],
+    "article": "DT-001"
+  },
+  {
+    "id": "2",
+    "name": "Фото советы",
+    "imageUrl": "testPhoto.webp",
+    "category": "Путеводители",
+    "description": "Советы по композиции и настройкам камеры",
+    "pdfs": [
+      {
+        "file": "test.pdf",
+        "meta": "12 стр."
+      }
+    ],
+    "links": [
+      {
+        "label": "Сайт производителя",
+        "href": "https://www.canon.com/",
+        "meta": "canon.com"
+      }
+    ],
+    "article": "DT-002"
+  },
+  {
+    "id": "3",
+    "name": "Canon",
+    "imageUrl": "testPhoto.webp",
+    "category": "Камеры и объективы",
+    "description": "Зеркальные и беззеркальные камеры Canon",
+    "pdfs": [
+      {
+        "file": "test.pdf",
+        "meta": "12 стр."
+      }
+    ],
+    "links": [
+      {
+        "label": "Видеообзор",
+        "href": "https://example.com/video",
+        "meta": "3:24"
+      },
+      {
+        "label": "Официальный сайт Canon",
+        "href": "https://www.canon.com/",
+        "meta": "canon.com"
+      }
+    ],
+    "article": "DT-003"
+  },
+  {
+    "id": "4",
+    "name": "Объективы",
+    "imageUrl": "testPhoto.webp",
+    "category": "Камеры и объективы",
+    "description": "Сменные объективы для камер",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-004"
+  },
+  {
+    "id": "5",
+    "name": "Штативы",
+    "imageUrl": "testPhoto.webp",
+    "category": "Аксессуары",
+    "description": "Штативы и моноподы для стабильной съёмки",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-005"
+  },
+  {
+    "id": "6",
+    "name": "Сумки для фото",
+    "imageUrl": "testPhoto.webp",
+    "category": "Аксессуары",
+    "description": "Рюкзаки и сумки для переноски техники",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-006"
+  },
+  {
+    "id": "7",
+    "name": "Освещение",
+    "imageUrl": "testPhoto.webp",
+    "category": "Аксессуары",
+    "description": "Вспышки, софтбоксы и постоянный свет",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-007"
+  },
+  {
+    "id": "8",
+    "name": "Дроны",
+    "imageUrl": "testPhoto.webp",
+    "category": "Техника",
+    "description": "Квадрокоптеры для аэросъёмки",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-008"
+  },
+  {
+    "id": "9",
+    "name": "Аксессуары",
+    "imageUrl": "testPhoto.webp",
+    "category": "Аксессуары",
+    "description": "Чехлы, фильтры, пульты и прочее",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-009"
+  },
+  {
+    "id": "10",
+    "name": "Память",
+    "imageUrl": "testPhoto.webp",
+    "category": "Комплектующие",
+    "description": "Карты памяти SD и CF для камер",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-010"
+  },
+  {
+    "id": "11",
+    "name": "Батареи",
+    "imageUrl": "testPhoto.webp",
+    "category": "Комплектующие",
+    "description": "Аккумуляторы и зарядные устройства",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-011"
+  },
+  {
+    "id": "12",
+    "name": "Зум",
+    "imageUrl": "testPhoto.webp",
+    "category": "Камеры и объективы",
+    "description": "Зум-объективы с переменным фокусным расстоянием",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-012"
+  },
+  {
+    "id": "13",
+    "name": "Широкоугольник",
+    "imageUrl": "testPhoto.webp",
+    "category": "Камеры и объективы",
+    "description": "Широкоугольные объективы для пейзажа и интерьеров",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-013"
+  },
+  {
+    "id": "14",
+    "name": "Макро",
+    "imageUrl": "testPhoto.webp",
+    "category": "Камеры и объективы",
+    "description": "Макрообъективы для съёмки крупным планом",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-014"
+  },
+  {
+    "id": "15",
+    "name": "Портрет",
+    "imageUrl": "testPhoto.webp",
+    "category": "Жанры съёмки",
+    "description": "Портретная съёмка людей",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-015"
+  },
+  {
+    "id": "16",
+    "name": "Пейзаж",
+    "imageUrl": "testPhoto.webp",
+    "category": "Жанры съёмки",
+    "description": "Съёмка природы и городских видов",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-016"
+  },
+  {
+    "id": "17",
+    "name": "Спорт",
+    "imageUrl": "testPhoto.webp",
+    "category": "Жанры съёмки",
+    "description": "Динамичная съёмка спортивных событий",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-017"
+  },
+  {
+    "id": "18",
+    "name": "Видео",
+    "imageUrl": "testPhoto.webp",
+    "category": "Видео и звук",
+    "description": "Видеокамеры и советы по видеосъёмке",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-018"
+  },
+  {
+    "id": "19",
+    "name": "Микрофоны",
+    "imageUrl": "testPhoto.webp",
+    "category": "Видео и звук",
+    "description": "Микрофоны для записи звука к видео",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-019"
+  },
+  {
+    "id": "20",
+    "name": "Стабилизаторы",
+    "imageUrl": "testPhoto.webp",
+    "category": "Видео и звук",
+    "description": "Гимбалы и стабилизаторы для камеры",
+    "pdfs": [
+      "test.pdf"
+    ],
+    "article": "DT-020"
+  }
 ]

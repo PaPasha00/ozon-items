@@ -1,119 +1,119 @@
 @use '../../styles/variables' as *;
 
 .faq {
-  padding: clamp(1rem, 3vw, 2rem) 0;
-  padding-top: calc(clamp(1rem, 3vw, 2rem) + 2.5rem);
+  padding: 2.25rem 1rem 2.75rem;
+  background: var(--color-page);
+  min-height: min-content;
+  padding-top: calc(2.25rem + 0.5rem);
+
+  @include desktop {
+    padding: 2.75rem 1.5rem 3.25rem;
+    padding-top: calc(2.75rem + 0.5rem);
+  }
 }
 
-.container {
-  max-width: 720px;
+.inner {
+  max-width: 45rem;
   margin: 0 auto;
-  padding: 0 clamp(1rem, 4vw, 1.5rem);
+  width: 100%;
 }
 
 .title {
-  font-size: clamp(1.75rem, 5vw, 2.25rem);
-  font-weight: 700;
-  margin: 0 0 1.25rem;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.35rem, 3.5vw, 1.625rem);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  text-align: left;
 }
 
-.description {
+.status {
   margin: 0;
-  line-height: 1.6;
-  opacity: 0.9;
-  font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+}
 
-  @media (prefers-color-scheme: light) {
-    opacity: 0.85;
+.panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.row {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+
+  &:last-child {
+    border-bottom: none;
   }
-}
-
-.section {
-  margin-top: 0.5rem;
-}
-
-.list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.item {
-  margin: 0;
 }
 
 .details {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: background 0.2s;
+  margin: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
 
-  @media (prefers-color-scheme: light) {
-    background: rgba(255, 255, 255, 0.75);
-  }
+.details[open] .summary {
+  padding-top: 1rem;
+  padding-bottom: 0.95rem;
+  background: var(--color-surface-2);
+}
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-
-    @media (prefers-color-scheme: light) {
-      background: rgba(255, 255, 255, 0.75);
-    }
-  }
-
-  &[open] {
-    background: rgba(255, 255, 255, 0.1);
-
-    @media (prefers-color-scheme: light) {
-      background: rgba(255, 255, 255, 0.75);
-    }
-  }
+.details[open] .summaryChevron {
+  transform: translateY(0) rotate(225deg);
 }
 
 .summary {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 0.5rem;
-  padding: clamp(0.875rem, 2vw, 1rem) clamp(1rem, 2.5vw, 1.25rem);
-  font-size: clamp(0.9375rem, 2vw, 1rem);
-  font-weight: 600;
-  cursor: pointer;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  min-height: 3.35rem;
+  padding: 0.9rem 1.1rem 0.9rem 1.2rem;
   list-style: none;
+  font-size: 0.9375rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  cursor: pointer;
   user-select: none;
+  transition: background 0.15s ease;
 
   &::-webkit-details-marker {
     display: none;
   }
+}
 
-  &::before {
-    content: '';
-    flex-shrink: 0;
-    width: 0.4em;
-    height: 0.4em;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg);
-    margin-right: 0.25rem;
-    opacity: 0.8;
-    transition: transform 0.2s;
-  }
+.summaryText {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: 1.45;
+  text-align: left;
+}
 
-  .details[open] &::before {
-    transform: rotate(-135deg);
-  }
+.summaryChevron {
+  flex: 0 0 auto;
+  display: block;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 2px solid var(--Main, #0058bc);
+  border-bottom: 2px solid var(--Main, #0058bc);
+  transform: translateY(-0.1rem) rotate(45deg);
+  transition: transform 0.2s ease;
 }
 
 .answer {
-  padding: 0 clamp(1rem, 2.5vw, 1.25rem) clamp(1rem, 2.5vw, 1.25rem);
-  padding-top: 0;
-  font-size: clamp(0.875rem, 1.8vw, 0.9375rem);
-  line-height: 1.55;
-  opacity: 0.9;
-
-  @media (prefers-color-scheme: light) {
-    opacity: 0.85;
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 1rem 1.2rem 1.2rem 1.2rem;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
 }

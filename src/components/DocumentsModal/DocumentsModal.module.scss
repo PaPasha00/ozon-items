@@ -24,9 +24,10 @@
 }
 
 .modal {
-  background: #1e293b;
-  border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
   max-width: 95vw;
@@ -39,11 +40,6 @@
     width: 100%;
     max-width: 100%;
     max-height: 90vh;
-  }
-
-  @media (prefers-color-scheme: light) {
-    background: #f8fafc;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
 }
 
@@ -65,27 +61,18 @@
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.2);
-
-  @media (prefers-color-scheme: light) {
-    border-bottom-color: #e2e8f0;
-    background: #f1f5f9;
-  }
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-2);
 }
 
 .header .title {
   margin: 0;
   font-size: 1.125rem;
-  font-weight: 600;
-  color: #f1f5f9;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  @media (prefers-color-scheme: light) {
-    color: #0f172a;
-  }
 }
 
 .topSection {
@@ -93,20 +80,17 @@
   display: flex;
   gap: 1rem;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-  @media (prefers-color-scheme: light) {
-    border-bottom-color: #e2e8f0;
-  }
+  border-bottom: 1px solid var(--color-border);
 }
 
 .thumbWrap {
   flex-shrink: 0;
   width: 80px;
   height: 80px;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   overflow: hidden;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
 }
 
 .thumb {
@@ -123,12 +107,8 @@
 .description {
   margin: 0;
   font-size: 0.9375rem;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   line-height: 1.5;
-
-  @media (prefers-color-scheme: light) {
-    color: #475569;
-  }
 }
 
 .filesSection {
@@ -142,17 +122,13 @@
 .filesTitle {
   margin: 0;
   padding: 0.75rem 1.25rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #94a3b8;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-subtle);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-  @media (prefers-color-scheme: light) {
-    color: #64748b;
-    border-bottom-color: #e2e8f0;
-  }
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-2);
 }
 
 .closeBtn {
@@ -162,25 +138,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: 10px;
-  background: rgba(239, 68, 68, 0.2);
-  color: #fca5a5;
-  font-size: 1.125rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 
   &:hover {
-    background: rgba(239, 68, 68, 0.35);
-  }
-
-  @media (prefers-color-scheme: light) {
-    background: #fee2e2;
-    color: #dc2626;
-
-    &:hover {
-      background: #fecaca;
-    }
+    color: #b91c1c;
+    border-color: #fecaca;
+    background: #fef2f2;
   }
 }
 
@@ -197,21 +166,19 @@
   padding: 0.75rem 1.25rem;
   border: none;
   background: transparent;
-  color: #e2e8f0;
-  font-size: 1rem;
+  color: var(--color-text);
+  font-size: 0.95rem;
   text-align: left;
   cursor: pointer;
   transition: background 0.15s;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-primary-subtle);
   }
+}
 
-  @media (prefers-color-scheme: light) {
-    color: #0f172a;
-
-    &:hover {
-      background: #e2e8f0;
-    }
-  }
+.overlay[data-theme='dark'] .closeBtn:hover {
+  color: #fca5a5;
+  border-color: #7f1d1d;
+  background: rgba(127, 29, 29, 0.35);
 }

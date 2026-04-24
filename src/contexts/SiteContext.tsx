@@ -33,7 +33,7 @@ export interface SiteConfig {
 }
 
 const defaultSite: SiteConfig = {
-  siteName: 'ozon-items',
+  siteName: 'Deltima',
   about: {
     description: '',
     advantagesHeading: 'Наши преимущества',
