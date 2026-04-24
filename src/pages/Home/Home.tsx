@@ -1,21 +1,45 @@
-import { useLayoutEffect, useState, useMemo, lazy, Suspense } from 'react';
+import { useCallback, useEffect, useState, useMemo, lazy, Suspense } from 'react';
 import { createPortal } from 'react-dom';
-import { useLocation } from 'react-router-dom';
-import { ProductExpandRow, CatalogEmptyState, type CatalogEmptyVariant } from '../../components';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  ProductExpandRow,
+  CatalogEmptyState,
+  FaqHelpCta,
+  type CatalogEmptyVariant,
+} from '../../components';
 import { useSearch } from '../../contexts/SearchContext';
 import { useProducts } from '../../contexts/ProductsContext';
 import { useFaq } from '../../contexts/FaqContext';
+import { useUiCopy } from '../../contexts/UiContext';
 import { getSortedCategoryNames, filterProducts } from '../../config/products';
+import { scrollAppToFaq } from '../../utils/scrollApp';
+import {
+  CATALOG_MEDIA_QS,
+  CATALOG_MEDIA_OPEN,
+  fileNameFromPublicUrl,
+  publicUrlForCatalogFile,
+  productHasCatalogFile,
+  stripCatalogMediaParams,
+} from '../../utils/catalogDeepLink';
 import styles from './Home.module.scss';
 
 const PdfViewerModal = lazy(() =>
   import('../../components/PdfViewerModal').then((m) => ({ default: m.PdfViewerModal }))
 );
+const VideoViewerModal = lazy(() =>
+  import('../../components/VideoViewerModal').then((m) => ({ default: m.VideoViewerModal }))
+);
+
+type HomeLocationState = { scrollToFaq?: boolean };
 
 export function Home() {
-  const { pathname, hash } = useLocation();
+  const { pathname, state: locationState } = useLocation();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [pdfView, setPdfView] = useState<{ url: string; title: string } | null>(null);
+  const [videoView, setVideoView] = useState<{ url: string; title: string } | null>(null);
   const { items: faqItems, loading: faqLoading, error: faqError } = useFaq();
+  const { catalog: catalogUi, faq: faqUi } = useUiCopy();
   const { searchQuery, setSearchQuery } = useSearch();
   const { displayProducts, loading, error } = useProducts();
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
@@ -37,22 +61,118 @@ export function Home() {
     return 'search';
   }, [searchQuery, searched.length, categoryFilter, list.length]);
 
-  useLayoutEffect(() => {
-    if (pathname !== '/' || hash !== '#faq') return;
-    const run = () => {
-      document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
-    const id = requestAnimationFrame(() => {
-      run();
-    });
-    return () => cancelAnimationFrame(id);
-  }, [pathname, hash, loading, faqLoading]);
+  useEffect(() => {
+    if (pathname !== '/') return;
+    const st = locationState as HomeLocationState | null;
+    if (!st?.scrollToFaq) return;
+    const id = window.setTimeout(() => {
+      scrollAppToFaq();
+      navigate('.', { replace: true, state: {} });
+    }, 0);
+    return () => clearTimeout(id);
+  }, [pathname, locationState, navigate, loading, faqLoading]);
+
+  const clearMediaFromUrl = useCallback(() => {
+    setSearchParams((prev) => stripCatalogMediaParams(prev), { replace: true });
+  }, [setSearchParams]);
+
+  const closePdf = useCallback(() => {
+    setPdfView(null);
+    clearMediaFromUrl();
+  }, [clearMediaFromUrl]);
+
+  const closeVideo = useCallback(() => {
+    setVideoView(null);
+    clearMediaFromUrl();
+  }, [clearMediaFromUrl]);
+
+  const openPdfForProduct = useCallback(
+    (productId: string, url: string, title: string) => {
+      setVideoView(null);
+      setPdfView({ url, title });
+      setSearchParams((prev) => {
+        const n = new URLSearchParams(prev);
+        n.set(CATALOG_MEDIA_QS.open, CATALOG_MEDIA_OPEN.pdf);
+        n.set(CATALOG_MEDIA_QS.product, productId);
+        n.set(CATALOG_MEDIA_QS.file, fileNameFromPublicUrl(url));
+        return n;
+      }, { replace: false });
+    },
+    [setSearchParams]
+  );
+
+  const openVideoForProduct = useCallback(
+    (productId: string, url: string, title: string) => {
+      setPdfView(null);
+      setVideoView({ url, title });
+      setSearchParams((prev) => {
+        const n = new URLSearchParams(prev);
+        n.set(CATALOG_MEDIA_QS.open, CATALOG_MEDIA_OPEN.video);
+        n.set(CATALOG_MEDIA_QS.product, productId);
+        n.set(CATALOG_MEDIA_QS.file, fileNameFromPublicUrl(url));
+        return n;
+      }, { replace: false });
+    },
+    [setSearchParams]
+  );
+
+  useEffect(() => {
+    const o = searchParams.get(CATALOG_MEDIA_QS.open);
+    const p = searchParams.get(CATALOG_MEDIA_QS.product);
+    const fRaw = searchParams.get(CATALOG_MEDIA_QS.file);
+    if (!o || !p || !fRaw) {
+      setPdfView(null);
+      setVideoView(null);
+      return;
+    }
+    if (loading) return;
+
+    let fileName: string;
+    try {
+      fileName = decodeURIComponent(fRaw);
+    } catch {
+      fileName = fRaw;
+    }
+
+    if (o !== CATALOG_MEDIA_OPEN.pdf && o !== CATALOG_MEDIA_OPEN.video) {
+      setSearchParams((prev) => stripCatalogMediaParams(prev), { replace: true });
+      setPdfView(null);
+      setVideoView(null);
+      return;
+    }
+
+    const product = displayProducts.find((x) => x.id === p);
+    if (!product) {
+      setSearchParams((prev) => stripCatalogMediaParams(prev), { replace: true });
+      setPdfView(null);
+      setVideoView(null);
+      return;
+    }
+
+    if (!productHasCatalogFile(product, fileName, o)) {
+      setSearchParams((prev) => stripCatalogMediaParams(prev), { replace: true });
+      setPdfView(null);
+      setVideoView(null);
+      return;
+    }
+
+    const url = publicUrlForCatalogFile(fileName);
+    const title = fileName;
+
+    if (o === CATALOG_MEDIA_OPEN.pdf) {
+      setVideoView(null);
+      setPdfView((prev) => (prev?.url === url && prev.title === title ? prev : { url, title }));
+    } else {
+      setPdfView(null);
+      setVideoView((prev) => (prev?.url === url && prev.title === title ? prev : { url, title }));
+    }
+  }, [searchParams, loading, displayProducts, setSearchParams]);
 
   return (
     <div className={styles.home}>
       <section className={styles.section}>
         {loading && (
-          <div className={styles.loadingState} role="status" aria-label="Загрузка">
+          <div className={styles.loadingState} role="status" aria-label={catalogUi.loadingAria}>
             <span className={styles.pdfLoader} />
           </div>
         )}
@@ -60,10 +180,8 @@ export function Home() {
         {!loading && !error && displayProducts.length > 0 ? (
           <>
             <header className={styles.pageHeader}>
-              <h1 className={styles.pageTitle}>Инструкции</h1>
-              <p className={styles.pageLead}>
-                Найдите товар по названию или артикулу на упаковке – все в одном месте
-              </p>
+              <h1 className={styles.pageTitle}>{catalogUi.pageTitle}</h1>
+              <p className={styles.pageLead}>{catalogUi.pageLead}</p>
               <div className={styles.catalogSearch}>
                 <span className={styles.searchIcon} aria-hidden>
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,17 +194,17 @@ export function Home() {
                 <input
                   type="search"
                   className={styles.searchInput}
-                  placeholder="Название или артикул"
+                  placeholder={catalogUi.searchPlaceholder}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  aria-label="Поиск по названию или артикулу"
+                  aria-label={catalogUi.searchAriaLabel}
                 />
                 {searchQuery.trim() ? (
                   <button
                     type="button"
                     className={styles.searchClear}
                     onClick={() => setSearchQuery('')}
-                    aria-label="Очистить поиск"
+                    aria-label={catalogUi.searchClearAria}
                   >
                     <svg
                       width="16"
@@ -108,7 +226,7 @@ export function Home() {
                 ) : null}
               </div>
               {categories.length > 0 && (
-                <div className={styles.categoryFilters} role="group" aria-label="Категории">
+                <div className={styles.categoryFilters} role="group" aria-label={catalogUi.categoriesAriaLabel}>
                   <button
                     type="button"
                     className={
@@ -116,7 +234,7 @@ export function Home() {
                     }
                     onClick={() => setCategoryFilter(null)}
                   >
-                    Все
+                    {catalogUi.filterAll}
                   </button>
                   {categories.map((c) => (
                     <button
@@ -136,13 +254,14 @@ export function Home() {
               )}
             </header>
             {list.length > 0 ? (
-              <ul className={styles.catalogPanel} aria-label="Список товаров">
+              <ul className={styles.catalogPanel} aria-label={catalogUi.catalogListAria}>
                 {list.map((product) => (
                   <li key={product.id} className={styles.stripItem}>
                     <ProductExpandRow
                       product={product}
                       accordionName="catalog"
-                      onOpenPdf={(url, title) => setPdfView({ url, title })}
+                      onOpenPdf={openPdfForProduct}
+                      onOpenVideo={openVideoForProduct}
                     />
                   </li>
                 ))}
@@ -158,7 +277,7 @@ export function Home() {
           </>
         ) : !loading && !error ? (
           <p className={styles.emptyState}>
-            {searchQuery.trim() ? 'Ничего не найдено' : 'Нет товаров'}
+            {searchQuery.trim() ? catalogUi.emptySearchNoResults : catalogUi.emptyNoProducts}
           </p>
         ) : null}
       </section>
@@ -170,12 +289,12 @@ export function Home() {
       >
         <div className={styles.faqInner}>
           <h2 className={styles.faqTitle} id="home-faq-title">
-            Вопросы и ответы
+            {faqUi.sectionTitle}
           </h2>
-          {faqLoading && <p className={styles.faqStatus}>Загрузка…</p>}
+          {faqLoading && <p className={styles.faqStatus}>{faqUi.loading}</p>}
           {faqError && <p className={styles.faqStatus}>{faqError}</p>}
           {!faqLoading && !faqError && faqItems.length > 0 ? (
-            <div className={styles.faqPanel} role="region" aria-label="Список вопросов">
+            <div className={styles.faqPanel} role="region" aria-label={faqUi.listAriaLabel}>
               {faqItems.map((item, index) => (
                 <div key={`${item.question}-${index}`} className={styles.faqRow}>
                   <details className={styles.faqDetails} name="faq">
@@ -189,8 +308,9 @@ export function Home() {
               ))}
             </div>
           ) : !faqLoading && !faqError ? (
-            <p className={styles.faqStatus}>Пока нет вопросов.</p>
+            <p className={styles.faqStatus}>{faqUi.empty}</p>
           ) : null}
+          {!faqLoading ? <FaqHelpCta /> : null}
         </div>
       </section>
 
@@ -198,16 +318,25 @@ export function Home() {
         createPortal(
           <Suspense
             fallback={
-              <div className={styles.pdfLoadingOverlay} role="status" aria-label="Загрузка просмотрщика">
+              <div className={styles.pdfLoadingOverlay} role="status" aria-label={catalogUi.pdfModalLoadingAria}>
                 <span className={styles.pdfLoader} />
               </div>
             }
           >
-            <PdfViewerModal
-              fileUrl={pdfView.url}
-              title={pdfView.title}
-              onClose={() => setPdfView(null)}
-            />
+            <PdfViewerModal fileUrl={pdfView.url} title={pdfView.title} onClose={closePdf} />
+          </Suspense>,
+          document.body
+        )}
+      {videoView &&
+        createPortal(
+          <Suspense
+            fallback={
+              <div className={styles.pdfLoadingOverlay} role="status" aria-label={catalogUi.videoModalLoadingAria}>
+                <span className={styles.pdfLoader} />
+              </div>
+            }
+          >
+            <VideoViewerModal videoUrl={videoView.url} title={videoView.title} onClose={closeVideo} />
           </Suspense>,
           document.body
         )}

@@ -1,3 +1,5 @@
+import { useUiCopy } from '../../contexts/UiContext';
+import { applyQueryTemplate } from '../../config/uiCopy';
 import styles from './CatalogEmptyState.module.scss';
 
 export type CatalogEmptyVariant = 'search' | 'searchInCategory' | 'category';
@@ -53,38 +55,39 @@ export function CatalogEmptyState({
   onClearSearch,
   onResetCategory,
 }: CatalogEmptyStateProps) {
+  const ce = useUiCopy().catalogEmpty;
   const q = truncateQuery(searchQuery);
 
   const { title, description, primaryAction, onPrimary, secondaryAction, onSecondary } = ((): CopyBlock => {
     switch (variant) {
       case 'search':
         return {
-          title: 'Ничего не нашлось',
+          title: ce.search.title,
           description: q
-            ? `Попробуйте ввести артикул с упаковки: «${q}» не найден`
-            : 'Попробуйте ввести артикул с упаковки',
-          primaryAction: 'Очистить поиск',
+            ? applyQueryTemplate(ce.search.descriptionWithQuery, q)
+            : ce.search.descriptionNoQuery,
+          primaryAction: ce.search.primary,
           onPrimary: onClearSearch,
           secondaryAction: null,
           onSecondary: null,
         };
       case 'searchInCategory':
         return {
-          title: 'В этой категории нет совпадений',
+          title: ce.searchInCategory.title,
           description: q
-            ? `Попробуйте ввести артикул с упаковки: «${q}» в выбранной категории не найден. Сбросьте категорию при необходимости.`
-            : 'Попробуйте ввести артикул с упаковки или сбросьте категорию.',
-          primaryAction: 'Все категории',
+            ? applyQueryTemplate(ce.searchInCategory.descriptionWithQuery, q)
+            : ce.searchInCategory.descriptionNoQuery,
+          primaryAction: ce.searchInCategory.primary,
           onPrimary: onResetCategory,
-          secondaryAction: 'Очистить поиск',
+          secondaryAction: ce.searchInCategory.secondary,
           onSecondary: onClearSearch,
         };
       case 'category':
       default:
         return {
-          title: 'В этой категории нет товаров',
-          description: 'Сбросьте фильтр категории, чтобы увидеть весь список.',
-          primaryAction: 'Показать все',
+          title: ce.category.title,
+          description: ce.category.description,
+          primaryAction: ce.category.primary,
           onPrimary: onResetCategory,
           secondaryAction: null,
           onSecondary: null,

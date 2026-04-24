@@ -1,12 +1,17 @@
 import styles from './Header.module.scss';
 
+export type LogoDeltimaProps = {
+  /** Дополнительный класс (например размер в футере) */
+  className?: string;
+};
+
 /**
  * Словарный знак Deltima (светлая заливка #15181E через currentColor + .logo)
  */
-export function LogoDeltima() {
+export function LogoDeltima({ className }: LogoDeltimaProps) {
   return (
     <svg
-      className={styles.logoSvg}
+      className={[styles.logoSvg, className].filter(Boolean).join(' ')}
       xmlns="http://www.w3.org/2000/svg"
       width="89"
       height="13"

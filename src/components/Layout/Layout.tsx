@@ -3,6 +3,7 @@ import { useRef, useEffect } from 'react';
 import { SearchProvider } from '../../contexts/SearchContext';
 import { ProductsProvider } from '../../contexts/ProductsContext';
 import { SiteProvider } from '../../contexts/SiteContext';
+import { UiProvider } from '../../contexts/UiContext';
 import { FaqProvider } from '../../contexts/FaqContext';
 import { Header } from '../Header';
 import { Footer } from '../Footer';
@@ -19,6 +20,7 @@ export function Layout() {
   return (
     <SearchProvider>
       <SiteProvider>
+        <UiProvider>
         <ProductsProvider>
           <FaqProvider>
             <div className={styles.layout}>
@@ -36,6 +38,7 @@ export function Layout() {
             </div>
           </FaqProvider>
         </ProductsProvider>
+        </UiProvider>
       </SiteProvider>
     </SearchProvider>
   );

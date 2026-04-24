@@ -43,7 +43,14 @@
       {
         "label": "Сайт производителя",
         "href": "https://www.canon.com/",
-        "meta": "canon.com"
+        "meta": "canon.com",
+        "openIn": "browser"
+      },
+      {
+        "label": "Канал в Telegram (пример)",
+        "href": "https://t.me/telegram",
+        "meta": "t.me",
+        "openIn": "telegram"
       }
     ],
     "article": "DT-002"
@@ -64,15 +71,29 @@
       {
         "label": "Видеообзор",
         "href": "https://example.com/video",
-        "meta": "3:24"
+        "meta": "3:24",
+        "openIn": "browser"
       },
       {
         "label": "Официальный сайт Canon",
         "href": "https://www.canon.com/",
-        "meta": "canon.com"
+        "meta": "canon.com",
+        "openIn": "browser"
+      },
+      {
+        "label": "Telegram (пример)",
+        "href": "https://t.me/telegram",
+        "meta": "в приложении",
+        "openIn": "telegram"
       }
     ],
-    "article": "DT-003"
+    "article": "DT-003",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   },
   {
     "id": "4",
@@ -83,7 +104,13 @@
     "pdfs": [
       "test.pdf"
     ],
-    "article": "DT-004"
+    "article": "DT-004",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   },
   {
     "id": "5",
@@ -116,7 +143,13 @@
     "pdfs": [
       "test.pdf"
     ],
-    "article": "DT-007"
+    "article": "DT-007",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   },
   {
     "id": "8",
@@ -127,7 +160,13 @@
     "pdfs": [
       "test.pdf"
     ],
-    "article": "DT-008"
+    "article": "DT-008",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   },
   {
     "id": "9",
@@ -171,7 +210,13 @@
     "pdfs": [
       "test.pdf"
     ],
-    "article": "DT-012"
+    "article": "DT-012",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   },
   {
     "id": "13",
@@ -182,7 +227,13 @@
     "pdfs": [
       "test.pdf"
     ],
-    "article": "DT-013"
+    "article": "DT-013",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   },
   {
     "id": "14",
@@ -215,7 +266,13 @@
     "pdfs": [
       "test.pdf"
     ],
-    "article": "DT-016"
+    "article": "DT-016",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   },
   {
     "id": "17",
@@ -226,7 +283,13 @@
     "pdfs": [
       "test.pdf"
     ],
-    "article": "DT-017"
+    "article": "DT-017",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   },
   {
     "id": "18",
@@ -236,6 +299,12 @@
     "description": "Видеокамеры и советы по видеосъёмке",
     "pdfs": [
       "test.pdf"
+    ],
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Таймлапс"
+      }
     ],
     "article": "DT-018"
   },
@@ -259,6 +328,12 @@
     "pdfs": [
       "test.pdf"
     ],
-    "article": "DT-020"
+    "article": "DT-020",
+    "videos": [
+      {
+        "file": "vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4",
+        "meta": "Пример (общий файл)"
+      }
+    ]
   }
 ]

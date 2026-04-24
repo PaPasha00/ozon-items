@@ -4,6 +4,8 @@ export { Footer } from './Footer';
 export { ProductCard } from './ProductCard';
 export { ProductExpandRow } from './ProductExpandRow';
 export { PdfViewerModal } from './PdfViewerModal';
+export { VideoViewerModal } from './VideoViewerModal';
 export { DocumentsModal } from './DocumentsModal';
 export { CatalogEmptyState } from './CatalogEmptyState';
 export type { CatalogEmptyVariant } from './CatalogEmptyState';
+export { FaqHelpCta } from './FaqHelpCta';

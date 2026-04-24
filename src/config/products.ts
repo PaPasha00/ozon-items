@@ -1,12 +1,23 @@
+/** Как открывать внешнюю ссылку в карточке товара */
+export type ProductLinkOpenIn = 'browser' | 'telegram';
+
 export interface ProductLinkItem {
   label: string;
   href: string;
   /** Вторая строка: «12 стр.», «3:24» и т.п. */
   meta?: string;
+  /**
+   * `browser` (по умолчанию) — обычная вкладка.
+   * `telegram` — по возможности открыть в приложении Telegram (`tg://` для t.me).
+   */
+  openIn?: ProductLinkOpenIn;
 }
 
 /** Строка `file.pdf` или объект с подписью под названием */
 export type ProductPdfEntry = string | { file: string; meta?: string };
+
+/** Файл из `public/` (например `clip.mp4`) — тот же формат, что у PDF */
+export type ProductVideoEntry = ProductPdfEntry;
 
 export interface ProductItem {
   id: string;
@@ -17,6 +28,8 @@ export interface ProductItem {
   article?: string;
   description?: string;
   pdfs?: ProductPdfEntry[];
+  /** Видео из `public/`; сеть к файлу только при открытии модалки */
+  videos?: ProductVideoEntry[];
   /** Внешние ссылки (сайт, мануал online и т.д.) */
   links?: ProductLinkItem[];
 }
@@ -76,12 +89,23 @@ export function filterProducts(products: ProductItem[], query: string): ProductI
           (e.meta?.toLowerCase().includes(q) ?? false)
         );
       }) ?? false;
+    const videoMatch =
+      p.videos?.some((e) => {
+        if (typeof e === 'string') {
+          return e.toLowerCase().includes(q);
+        }
+        return (
+          e.file.toLowerCase().includes(q) ||
+          (e.meta?.toLowerCase().includes(q) ?? false)
+        );
+      }) ?? false;
     const linkMatch =
       p.links?.some(
         (l) =>
           l.label.toLowerCase().includes(q) ||
           l.href.toLowerCase().includes(q) ||
-          (l.meta?.toLowerCase().includes(q) ?? false)
+          (l.meta?.toLowerCase().includes(q) ?? false) ||
+          (l.openIn?.toLowerCase().includes(q) ?? false)
       ) ?? false;
     const article = (p.article ?? '').toLowerCase();
     return (
@@ -90,6 +114,7 @@ export function filterProducts(products: ProductItem[], query: string): ProductI
       cat.includes(q) ||
       article.includes(q) ||
       pdfMatch ||
+      videoMatch ||
       linkMatch
     );
   });

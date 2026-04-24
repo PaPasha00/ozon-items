@@ -1,0 +1,182 @@
+@use '../../styles/variables' as *;
+
+/* Help CTA: светлая Figma 6:4408, тёмная 30:10388 — цвета из токенов (= Figma Text/Main, Surface, Stroke) */
+.card {
+  --help-details-bg: var(--color-surface);
+  --help-details-bg-open: var(--color-surface-2);
+  --help-summary-text: var(--color-text);
+  --help-chevron: var(--color-text-muted);
+  --help-step-text: var(--color-text);
+  --help-focus-ring: var(--Main, #0058bc);
+
+  width: 100%;
+  margin-top: 1.5rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-sizing: border-box;
+  /* Figma Section 6:4408: boxShadow */
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.04);
+}
+
+:global(html[data-theme='dark']) .card {
+  box-shadow: none;
+}
+
+.hero {
+  position: relative;
+  padding: 1rem;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: linear-gradient(117deg, #0058bc 0%, #0070eb 100%);
+}
+
+.heroBlurA,
+.heroBlurB {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.heroBlurA {
+  width: 24rem;
+  height: 24rem;
+  right: -6rem;
+  top: -12rem;
+  background: rgba(255, 255, 255, 0.1);
+  filter: blur(64px);
+}
+
+.heroBlurB {
+  width: 16rem;
+  height: 16rem;
+  left: -8rem;
+  top: 0.25rem;
+  background: rgba(0, 0, 0, 0.1);
+  filter: blur(40px);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.description {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #c1c6d7;
+}
+
+.details {
+  margin: 0;
+  border: none;
+  background: var(--help-details-bg);
+  transition: background 0.2s ease;
+}
+
+.details[open] {
+  background: var(--help-details-bg-open);
+}
+
+.summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 1rem;
+  list-style: none;
+  font-size: 1rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+  color: var(--help-summary-text);
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.chevron {
+  flex: 0 0 auto;
+  display: block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-right: 0.15rem;
+  border-right: 2px solid var(--help-chevron);
+  border-bottom: 2px solid var(--help-chevron);
+  transform: translateY(-0.15rem) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.details[open] .chevron {
+  transform: translateY(0.05rem) rotate(225deg);
+}
+
+.steps {
+  padding: 0 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+}
+
+/* Figma: круг шага #F4F5F7, цифра #1A1C1D — одинаково в темах */
+.stepNum {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.1rem;
+  border-radius: 100px;
+  background: #f4f5f7;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #1a1c1d;
+}
+
+.stepText {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--help-step-text);
+}
+
+.details:focus-visible {
+  outline: none;
+}
+
+.summary:focus-visible {
+  outline: 2px solid var(--help-focus-ring);
+  outline-offset: -2px;
+}

@@ -58,12 +58,6 @@
   box-shadow: none;
 }
 
-.details[open] .summary {
-  padding-top: 1rem;
-  padding-bottom: 0.95rem;
-  background: var(--color-surface-2);
-}
-
 .details[open] .summaryChevron {
   transform: translateY(0) rotate(225deg);
 }
@@ -101,8 +95,8 @@
   display: block;
   width: 0.4rem;
   height: 0.4rem;
-  border-right: 2px solid var(--Main, #0058bc);
-  border-bottom: 2px solid var(--Main, #0058bc);
+  border-right: 2px solid var(--expander-chevron);
+  border-bottom: 2px solid var(--expander-chevron);
   transform: translateY(-0.1rem) rotate(45deg);
   transition: transform 0.2s ease;
 }

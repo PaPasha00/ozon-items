@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
+import { DEFAULT_UI_COPY } from '../config/uiCopy';
 
 export interface FaqItem {
   question: string;
@@ -23,15 +24,22 @@ export function FaqProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetch('/faq.json')
       .then((res) => {
-        if (!res.ok) throw new Error('Не удалось загрузить частые вопросы');
+        if (!res.ok) throw new Error(DEFAULT_UI_COPY.faq.loadError);
         return res.json();
       })
-      .then((data: FaqItem[]) => {
-        setItems(Array.isArray(data) ? data : []);
+      .then((data: unknown) => {
+        const list = Array.isArray(data)
+          ? data
+          : typeof data === 'object' &&
+              data !== null &&
+              Array.isArray((data as { items?: unknown }).items)
+            ? (data as { items: FaqItem[] }).items
+            : [];
+        setItems(list);
         setError(null);
       })
-      .catch((err) => {
-        setError(err.message || 'Ошибка загрузки');
+      .catch(() => {
+        setError(DEFAULT_UI_COPY.faq.loadError);
         setItems([]);
       })
       .finally(() => setLoading(false));

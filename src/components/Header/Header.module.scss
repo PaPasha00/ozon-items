@@ -19,7 +19,7 @@
   justify-content: space-between;
   gap: 1rem;
   min-height: var(--header-height, 3.5rem);
-  max-width: 1280px;
+  max-width: var(--content-max-width, 780px);
   margin: 0 auto;
   padding: 0 1rem;
   box-sizing: border-box;
@@ -167,6 +167,19 @@
 .themeIcon {
   display: block;
   flex-shrink: 0;
+}
+
+/* Тёмная тема: на тёмном hover-подложке текст и иконка всегда белые */
+:global(html[data-theme='dark']) {
+  .navBtn:hover,
+  .navBtn:focus-visible {
+    color: #ffffff;
+  }
+
+  .themeBtn:hover,
+  .themeBtn:focus-visible {
+    color: #ffffff;
+  }
 }
 
 @include desktop {

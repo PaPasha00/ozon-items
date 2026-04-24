@@ -123,8 +123,8 @@
   display: block;
   width: 0.4rem;
   height: 0.4rem;
-  border-right: 2px solid var(--Main, #0058bc);
-  border-bottom: 2px solid var(--Main, #0058bc);
+  border-right: 2px solid var(--expander-chevron);
+  border-bottom: 2px solid var(--expander-chevron);
   transform: translateY(-0.1rem) rotate(45deg);
   transition: transform 0.2s ease;
   margin-left: 0.25rem;
@@ -219,6 +219,31 @@
   &:focus-visible {
     outline: 2px solid var(--Main, #0058bc);
     outline-offset: -2px;
+  }
+}
+
+:global(html[data-theme='dark']) {
+  .actionRow {
+    background: var(--Background, #272b32);
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(102, 157, 255, 0.3);
+
+      .actionLabel,
+      .actionIcon {
+        color: var(--color-text);
+      }
+
+      .actionMeta {
+        color: var(--color-text-subtle);
+      }
+
+      .rowChevron {
+        color: var(--color-text-muted);
+        opacity: 0.9;
+      }
+    }
   }
 }
 

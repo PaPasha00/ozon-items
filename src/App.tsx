@@ -9,7 +9,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="catalog" element={<Catalog />} />
         <Route path="about" element={<About />} />
-        <Route path="faq" element={<Navigate to="/#faq" replace />} />
+        <Route path="faq" element={<Navigate to="/" replace state={{ scrollToFaq: true }} />} />
       </Route>
     </Routes>
   );

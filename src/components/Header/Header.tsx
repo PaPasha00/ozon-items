@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useSiteConfig } from '../../contexts/SiteContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { mainNav } from '../../config/navigation';
+import { scrollAppToTop, scrollAppToFaq } from '../../utils/scrollApp';
 import { LogoDeltima } from './LogoDeltima';
 import styles from './Header.module.scss';
 
@@ -42,19 +43,10 @@ function IconSun() {
   );
 }
 
-/** Скролл основного контента (в Layout — #app-scroll-root, не window) */
-function scrollAppToTop() {
-  const el = document.getElementById('app-scroll-root');
-  if (el) {
-    el.scrollTo({ top: 0, behavior: 'smooth' });
-  } else {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
 export function Header() {
   const { config } = useSiteConfig();
   const { theme, toggleTheme } = useTheme();
+  const location = useLocation();
 
   return (
     <header className={styles.header}>
@@ -70,20 +62,28 @@ export function Header() {
         <div className={styles.navScroll}>
           <div className={styles.navActions}>
             <nav className={styles.navGroup} aria-label="Основная навигация">
-              {mainNav.map(({ to, label }) => (
-                <Link
-                  key={to}
-                  to={to}
-                  className={styles.navBtn}
-                  onClick={() => {
-                    if (to === '/') {
-                      requestAnimationFrame(() => scrollAppToTop());
-                    }
-                  }}
-                >
-                  {label}
-                </Link>
-              ))}
+              {mainNav.map((item) => {
+                const scrollToFaq = 'scrollToFaq' in item && item.scrollToFaq;
+                return (
+                  <Link
+                    key={item.label}
+                    to={item.to}
+                    state={scrollToFaq ? { scrollToFaq: true } : undefined}
+                    className={styles.navBtn}
+                    onClick={(e) => {
+                      if (item.to === '/' && !scrollToFaq) {
+                        requestAnimationFrame(() => scrollAppToTop());
+                      }
+                      if (scrollToFaq && location.pathname === '/') {
+                        e.preventDefault();
+                        requestAnimationFrame(() => scrollAppToFaq());
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
             </nav>
             <button
               type="button"
