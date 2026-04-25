@@ -1,4 +1,4 @@
-import type { ProductItem } from '../config/products';
+import { type ProductItem, productPublicRelativeForFile } from '../config/products';
 
 /** Query: `?open=pdf|video&p=<id товара>&f=<имя файла в public/>` */
 export const CATALOG_MEDIA_QS = {
@@ -38,21 +38,17 @@ export function publicUrlForCatalogFile(fileName: string): string {
   return `/${parts.map((seg) => encodeURIComponent(seg)).join('/')}`;
 }
 
-function pdfOrVideoFileNames(
-  entries: Array<string | { file: string; meta?: string }> | undefined
-): string[] {
-  if (!entries?.length) return [];
-  return entries.map((e) => (typeof e === 'string' ? e : e.file));
-}
-
 export function productHasCatalogFile(
   product: ProductItem,
   fileName: string,
   kind: CatalogMediaOpen
 ): boolean {
-  const names =
-    kind === CATALOG_MEDIA_OPEN.pdf ? pdfOrVideoFileNames(product.pdfs) : pdfOrVideoFileNames(product.videos);
-  return names.includes(fileName);
+  const entries = kind === CATALOG_MEDIA_OPEN.pdf ? product.pdfs : product.videos;
+  if (!entries?.length) return false;
+  return entries.some((e) => {
+    const file = typeof e === 'string' ? e : e.file;
+    return productPublicRelativeForFile(product, file) === fileName;
+  });
 }
 
 export function stripCatalogMediaParams(searchParams: URLSearchParams): URLSearchParams {

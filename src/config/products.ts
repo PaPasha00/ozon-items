@@ -13,8 +13,8 @@ export interface ProductLinkItem {
   openIn?: ProductLinkOpenIn;
 }
 
-/** Строка `file.pdf` или объект с подписью под названием */
-export type ProductPdfEntry = string | { file: string; meta?: string };
+/** Строка `file.pdf` или объект с заголовком/деталями */
+export type ProductPdfEntry = string | { file: string; meta?: string; details?: string };
 
 /** Файл из `public/` (например `clip.mp4`) — тот же формат, что у PDF */
 export type ProductVideoEntry = ProductPdfEntry;
@@ -24,6 +24,8 @@ export interface ProductItem {
   name: string;
   imageUrl: string;
   category: string;
+  /** Подкаталог в `public/` (без / в начале и конце). `imageUrl`, имена в `pdfs`/`videos` — только файлы/относительные пути внутри неё */
+  publicDir?: string;
   /** Артикул (SKU) для отображения в каталоге */
   article?: string;
   /** Показывать товар на сайте; если false — скрыт из каталога */
@@ -36,9 +38,42 @@ export interface ProductItem {
   links?: ProductLinkItem[];
 }
 
+export function normalizeProductPublicDir(dir: string | undefined | null): string {
+  if (!dir?.trim()) return '';
+  return dir.replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
+}
+
+function joinPublicRelativeSubpath(dir: string, fileOrPath: string): string {
+  const f = fileOrPath.trim().replace(/\\/g, '/').replace(/^\/+/, '');
+  if (!dir) return f;
+  return `${dir}/${f}`.replace(/\/+/g, '/');
+}
+
+function publicUrlFromRelativePath(relative: string): string {
+  const parts = relative.split('/').filter(Boolean);
+  if (parts.length === 0) return '/';
+  return `/${parts.map((seg) => encodeURIComponent(seg)).join('/')}`;
+}
+
+/**
+ * Путь относительно `public/` (сегменты через `/`, без ведущего /), как в query `f=`.
+ * Для сравнения с URL и deep-link.
+ */
+export function productPublicRelativeForFile(product: ProductItem, file: string): string {
+  return joinPublicRelativeSubpath(normalizeProductPublicDir(product.publicDir), file);
+}
+
+export function getPublicUrlForProductFile(product: ProductItem, file: string): string {
+  return publicUrlFromRelativePath(productPublicRelativeForFile(product, file));
+}
+
 export function getProductImageUrl(product: ProductItem): string {
   const url = product.imageUrl.trim();
-  return url.startsWith('http://') || url.startsWith('https://') ? url : `/${url}`;
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+  if (url.startsWith('/')) {
+    return publicUrlFromRelativePath(url.replace(/^\/+/, ''));
+  }
+  return getPublicUrlForProductFile(product, url);
 }
 
 function pdfEntryFile(entry: ProductPdfEntry): string {
@@ -52,7 +87,7 @@ export function getPdfFileNames(pdfs?: ProductPdfEntry[] | null): string[] {
 
 export function getProductPdfUrls(product: ProductItem): string[] {
   if (!product.pdfs?.length) return [];
-  return product.pdfs.map((e) => `/${pdfEntryFile(e)}`);
+  return product.pdfs.map((e) => getPublicUrlForProductFile(product, pdfEntryFile(e)));
 }
 
 export function getProductPdfUrl(product: ProductItem): string | null {
@@ -88,7 +123,8 @@ export function filterProducts(products: ProductItem[], query: string): ProductI
         }
         return (
           e.file.toLowerCase().includes(q) ||
-          (e.meta?.toLowerCase().includes(q) ?? false)
+          (e.meta?.toLowerCase().includes(q) ?? false) ||
+          (e.details?.toLowerCase().includes(q) ?? false)
         );
       }) ?? false;
     const videoMatch =
@@ -98,7 +134,8 @@ export function filterProducts(products: ProductItem[], query: string): ProductI
         }
         return (
           e.file.toLowerCase().includes(q) ||
-          (e.meta?.toLowerCase().includes(q) ?? false)
+          (e.meta?.toLowerCase().includes(q) ?? false) ||
+          (e.details?.toLowerCase().includes(q) ?? false)
         );
       }) ?? false;
     const linkMatch =
@@ -109,6 +146,7 @@ export function filterProducts(products: ProductItem[], query: string): ProductI
           (l.meta?.toLowerCase().includes(q) ?? false) ||
           (l.openIn?.toLowerCase().includes(q) ?? false)
       ) ?? false;
+    const publicDirMatch = (p.publicDir?.toLowerCase().includes(q) ?? false);
     const article = (p.article ?? '').toLowerCase();
     return (
       name.includes(q) ||
@@ -117,7 +155,8 @@ export function filterProducts(products: ProductItem[], query: string): ProductI
       article.includes(q) ||
       pdfMatch ||
       videoMatch ||
-      linkMatch
+      linkMatch ||
+      publicDirMatch
     );
   });
 }

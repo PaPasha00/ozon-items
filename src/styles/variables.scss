@@ -38,3 +38,13 @@ $breakpoint-wide: 1280px;
     @content;
   }
 }
+
+/**
+ * Подложка под PNG с прозрачным фоном: сплошной фон и тонкая рамка
+ * (токены --product-image-frame-* в `tokens.scss`, тёмная тема отдельно).
+ */
+@mixin product-image-cutout-bg {
+  border-radius: 8px;
+  border: 1px solid var(--product-image-frame-border, #f6f6f6);
+  background: var(--product-image-frame-bg, var(--Background, #f4f5f7));
+}

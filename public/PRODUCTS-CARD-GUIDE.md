@@ -12,7 +12,8 @@
 |------|----------|--------|
 | `id` | Уникальный идентификатор (строка). | `"1"` |
 | `name` | Название товара. | `"Canon EOS R6"` |
-| `imageUrl` | Картинка: имя файла из **`public/`** или полный `https://…`. | `"testPhoto.webp"` → откроется как `/testPhoto.webp` |
+| `imageUrl` | Картинка: имя файла (и при необходимости относительный путь) внутри `public/`, **либо** полный `https://…`. Если задано `publicDir`, путь берётся относительно него. | `"thumb.webp"` |
+| `publicDir` | нет | Подпапка в **`public/`** для **этого товара**: в `imageUrl` и в именах в `pdfs` / `videos` указываете только файлы (или путь от этой папки), без `public/`. Слеши в начале/конце не нужны. | `"brand/canon-r6"` |
 | `category` | Категория (фильтр-чипы на главной). | `"Камеры и объективы"` |
 | `description` | Текст под заголовком в раскрытой карточке. | `"Зеркальная камера…"` |
 | `article` | Артикул на упаковке; показывается рядом с категорией. | `"DT-003"` |
@@ -20,9 +21,26 @@
 
 ---
 
+## Папка с файлами (`publicDir`)
+
+Один раз задаёте каталог (от корня `public/`), дальше в `imageUrl`, `pdfs` и `videos` — только **имена файлов** (или путь *внутри* этой папки, например `"docs/manual.pdf"`).
+
+Пример: файлы лежат в `public/brand/canon/photo.webp` и `public/brand/canon/manual.pdf`:
+
+```json
+"publicDir": "brand/canon",
+"imageUrl": "photo.webp",
+"pdfs": [ "manual.pdf" ]
+```
+
+Без `publicDir` пути по-прежнему считаются от корня `public/` (как в старых примерах: `"test.pdf"` → `/test.pdf`).
+
+---
+
 ## PDF (`pdfs`)
 
-Массив инструкций из **`public/`**. Можно список строк или объекты с подписью.
+Массив инструкций из **`public/`** (с учётом `publicDir`, если оно задано). Можно список строк или объекты с подписью.
+В интерфейсе название файла не показывается: первая строка берётся из `meta`, вторая — из `details`.
 
 **Вариант 1 — только имя файла:**
 
@@ -30,12 +48,12 @@
 "pdfs": [ "manual.pdf", "warranty.pdf" ]
 ```
 
-**Вариант 2 — подпись вторая строка (`meta`):**
+**Вариант 2 — две строки (`meta` + `details`):**
 
 ```json
 "pdfs": [
-  { "file": "manual.pdf", "meta": "24 стр." },
-  { "file": "quick-start.pdf", "meta": "2 стр." }
+  { "file": "manual.pdf", "meta": "Инструкция по эксплуатации", "details": "PDF • 24 стр." },
+  { "file": "quick-start.pdf", "meta": "Быстрый старт", "details": "PDF • 2 стр." }
 ]
 ```
 
@@ -46,11 +64,12 @@
 ## Видео (`videos`)
 
 Так же, как PDF: файлы лежат в **`public/`**, в JSON указываете только имя файла. Загрузка ролика по сети — **после** нажатия на строку (не при открытии каталога).
+В интерфейсе для видео также: первая строка — `meta`, вторая — `details`.
 
 ```json
 "videos": [
   "promo.mp4",
-  { "file": "unboxing.mp4", "meta": "3:40" }
+  { "file": "unboxing.mp4", "meta": "Видео по сборке", "details": "MP4 • 4 мин" }
 ]
 ```
 
@@ -128,12 +147,14 @@
 |----------|----------|
 | `open` | `pdf` или `video` |
 | `p` | **`id` товара** из `products.json` (строка). |
-| `f` | **имя файла** в `public/` (как в `pdfs` / `videos`), без ведущего `/`. При необходимости кодируйте в URL (`encodeURIComponent`). |
+| `f` | **путь к файлу** от корня `public/` (как в данных: с `publicDir` — `папка/файл.pdf`), без ведущего `/`. При необходимости кодируйте в URL (`encodeURIComponent`). |
 
 **Примеры:**
 
-- PDF `test.pdf` у товара с `"id": "3"`:
+- PDF `test.pdf` в корне `public/` у товара с `"id": "3"`:
   - `/?open=pdf&p=3&f=test.pdf`
+- Тот же файл в подпапке, если у товара `publicDir: "brand/canon"` и в `pdfs` указано `"manual.pdf"` (итоговый путь `public/brand/canon/manual.pdf`):
+  - `/?open=pdf&p=3&f=brand%2Fcanon%2Fmanual.pdf`
 - Видео с длинным именем (фрагмент закодирован):
   - `/?open=video&p=18&f=vecteezy_sunrise-and-sunset-timelapse-high-definition-footage-on_3213023.mp4`
 
@@ -149,13 +170,14 @@
 {
   "id": "101",
   "name": "Пример товара",
+  "publicDir": "example/product-101",
   "imageUrl": "testPhoto.webp",
   "category": "Аксессуары",
   "description": "Краткое описание для покупателя.",
   "article": "SKU-101",
   "showOnSite": true,
-  "pdfs": [ { "file": "test.pdf", "meta": "Инструкция" } ],
-  "videos": [ { "file": "demo.mp4", "meta": "Обзор" } ],
+  "pdfs": [ { "file": "test.pdf", "meta": "Инструкция", "details": "PDF • 12 стр." } ],
+  "videos": [ { "file": "demo.mp4", "meta": "Обзор", "details": "MP4 • 3 мин" } ],
   "links": [
     { "label": "Сайт", "href": "https://example.com", "meta": "example.com", "openIn": "browser" },
     { "label": "Поддержка в TG", "href": "https://t.me/support", "openIn": "telegram" }

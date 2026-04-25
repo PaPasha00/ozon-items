@@ -1,6 +1,11 @@
 import { useMemo } from 'react';
 import type { ProductItem } from '../../config/products';
-import { getProductImageUrl, type ProductPdfEntry, type ProductVideoEntry } from '../../config/products';
+import {
+  getProductImageUrl,
+  getPublicUrlForProductFile,
+  type ProductPdfEntry,
+  type ProductVideoEntry,
+} from '../../config/products';
 import { productLinkHrefForOpen } from '../../utils/productLinks';
 import { useUiCopy } from '../../contexts/UiContext';
 import styles from './ProductExpandRow.module.scss';
@@ -11,6 +16,22 @@ function Chevron() {
 
 function RowChevron() {
   return <span className={styles.rowChevron} aria-hidden />;
+}
+
+function DetailsText({ details }: { details: string }) {
+  const [leftRaw, rightRaw] = details.split('•', 2);
+  const left = leftRaw?.trim() ?? '';
+  const right = rightRaw?.trim() ?? '';
+  if (!left || !right) return <span className={styles.actionMeta}>{details}</span>;
+  return (
+    <span className={styles.actionMeta}>
+      <span>{left}</span>
+      <span className={styles.actionMetaDot} aria-hidden>
+        •
+      </span>
+      <span>{right}</span>
+    </span>
+  );
 }
 
 function IconVideo() {
@@ -98,34 +119,48 @@ export function ProductExpandRow({ product, accordionName, onOpenPdf, onOpenVide
     product;
   const category = categoryName ?? '';
   const imageUrl = getProductImageUrl(product);
+  const fallbackFileTitle = 'Файл';
+  const fallbackVideoTitle = 'Видео';
 
   const fileList = useMemo(() => {
     const seen = new Set<string>();
-    const out: { name: string; url: string; meta?: string }[] = [];
+    const out: { file: string; title: string; url: string; details?: string }[] = [];
     for (const entry of pdfs) {
       const e: ProductPdfEntry = entry;
       const file = typeof e === 'string' ? e : e?.file;
       if (!file || seen.has(file)) continue;
       seen.add(file);
-      const meta = typeof e === 'string' ? undefined : e?.meta?.trim();
-      out.push({ name: file, url: `/${file}`, meta: meta || undefined });
+      const title = typeof e === 'string' ? fallbackFileTitle : (e?.meta?.trim() ?? fallbackFileTitle);
+      const details = typeof e === 'string' ? undefined : e?.details?.trim();
+      out.push({
+        file,
+        title: title || fallbackFileTitle,
+        url: getPublicUrlForProductFile(product, file),
+        details: details || undefined,
+      });
     }
     return out;
-  }, [pdfs]);
+  }, [fallbackFileTitle, pdfs, product]);
 
   const videoList = useMemo(() => {
     const seen = new Set<string>();
-    const out: { name: string; url: string; meta?: string }[] = [];
+    const out: { file: string; title: string; url: string; details?: string }[] = [];
     for (const entry of videos) {
       const e: ProductVideoEntry = entry;
       const file = typeof e === 'string' ? e : e?.file;
       if (!file || seen.has(file)) continue;
       seen.add(file);
-      const meta = typeof e === 'string' ? undefined : e?.meta?.trim();
-      out.push({ name: file, url: `/${file}`, meta: meta || undefined });
+      const title = typeof e === 'string' ? fallbackVideoTitle : (e?.meta?.trim() ?? fallbackVideoTitle);
+      const details = typeof e === 'string' ? undefined : e?.details?.trim();
+      out.push({
+        file,
+        title: title || fallbackVideoTitle,
+        url: getPublicUrlForProductFile(product, file),
+        details: details || undefined,
+      });
     }
     return out;
-  }, [videos]);
+  }, [fallbackVideoTitle, product, videos]);
 
   const linkList = useMemo(() => {
     const seen = new Set<string>();
@@ -146,7 +181,7 @@ export function ProductExpandRow({ product, accordionName, onOpenPdf, onOpenVide
         <summary className={styles.summary}>
           <span className={styles.thumbWrap} aria-hidden>
             {imageUrl ? (
-              <img src={imageUrl} alt="" className={styles.thumb} loading="lazy" width={48} height={48} />
+              <img src={imageUrl} alt="" className={styles.thumb} loading="lazy" width={60} height={60} />
             ) : (
               <span className={styles.thumbPlaceholder} />
             )}
@@ -179,36 +214,36 @@ export function ProductExpandRow({ product, accordionName, onOpenPdf, onOpenVide
               <div className={styles.actionsBlock}>
                 <ul className={styles.actionStack} aria-label={pc.materialsAriaLabel}>
                   {fileList.map((f) => (
-                    <li key={`pdf-${f.name}`} className={styles.actionItem}>
+                    <li key={`pdf-${f.file}`} className={styles.actionItem}>
                       <button
                         type="button"
                         className={styles.actionRow}
-                        onClick={() => onOpenPdf(productId, f.url, f.name)}
+                        onClick={() => onOpenPdf(productId, f.url, f.title)}
                       >
                         <span className={styles.actionIcon} aria-hidden>
                           <IconPdf />
                         </span>
                         <span className={styles.actionTextBlock}>
-                          <span className={styles.actionLabel}>{f.name}</span>
-                          {f.meta ? <span className={styles.actionMeta}>{f.meta}</span> : null}
+                          <span className={styles.actionLabel}>{f.title}</span>
+                          {f.details ? <DetailsText details={f.details} /> : null}
                         </span>
                         <RowChevron />
                       </button>
                     </li>
                   ))}
                   {videoList.map((v) => (
-                    <li key={`video-${v.name}`} className={styles.actionItem}>
+                    <li key={`video-${v.file}`} className={styles.actionItem}>
                       <button
                         type="button"
                         className={styles.actionRow}
-                        onClick={() => onOpenVideo(productId, v.url, v.name)}
+                        onClick={() => onOpenVideo(productId, v.url, v.title)}
                       >
                         <span className={styles.actionIcon} aria-hidden>
                           <IconVideo />
                         </span>
                         <span className={styles.actionTextBlock}>
-                          <span className={styles.actionLabel}>{v.name}</span>
-                          {v.meta ? <span className={styles.actionMeta}>{v.meta}</span> : null}
+                          <span className={styles.actionLabel}>{v.title}</span>
+                          {v.details ? <DetailsText details={v.details} /> : null}
                         </span>
                         <RowChevron />
                       </button>

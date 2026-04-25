@@ -54,6 +54,10 @@
   /* Макс. ширина основной колонки (центрирование на ПК) */
   --content-max-width: 780px;
 
+  /* Подложка под фото товара (прозрачный PNG) */
+  --product-image-frame-border: #f6f6f6;
+  --product-image-frame-bg: var(--Background, #f4f5f7);
+
   /* Стрелка раскрытия details (карточка / FAQ): на светлой — Main */
   --expander-chevron: var(--Main);
 }
@@ -79,6 +83,9 @@ html[data-theme='dark'] {
   --color-text: #ffffff;
   --color-text-muted: #b3b7c0;
   --color-text-subtle: #91949c;
+
+  --product-image-frame-border: var(--color-border);
+  --product-image-frame-bg: var(--color-surface-2);
 
   --expander-chevron: var(--color-text-muted);
 
