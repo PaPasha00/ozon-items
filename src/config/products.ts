@@ -26,6 +26,8 @@ export interface ProductItem {
   category: string;
   /** Артикул (SKU) для отображения в каталоге */
   article?: string;
+  /** Показывать товар на сайте; если false — скрыт из каталога */
+  showOnSite?: boolean;
   description?: string;
   pdfs?: ProductPdfEntry[];
   /** Видео из `public/`; сеть к файлу только при открытии модалки */
@@ -59,7 +61,7 @@ export function getProductPdfUrl(product: ProductItem): string | null {
 }
 
 export function getProductsForDisplay(products: ProductItem[]): ProductItem[] {
-  return products;
+  return products.filter((p) => p.showOnSite !== false);
 }
 
 export function getProductsByCategory(products: ProductItem[]): Map<string, ProductItem[]> {

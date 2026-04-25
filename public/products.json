@@ -25,7 +25,8 @@
       "test.pdf",
       "test.pdf"
     ],
-    "article": "DT-001"
+    "article": "",
+    "showOnSite": true
   },
   {
     "id": "2",
