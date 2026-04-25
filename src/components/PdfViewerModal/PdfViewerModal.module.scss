@@ -76,6 +76,10 @@
   gap: 0.25rem;
 }
 
+.overlay[data-theme='dark'] .topBar {
+  background: #15171b;
+}
+
 .topBarTitle {
   margin: 0;
   font-size: 0.9375rem;
@@ -94,28 +98,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 1.9375rem;
+  height: 1.9375rem;
   margin: 0;
   padding: 0;
   border: none;
-  border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--color-text-muted);
+  border-radius: 50%;
+  background: #e8edf3;
+  color: #6e7278;
   cursor: pointer;
   transition: background 0.15s, color 0.15s, opacity 0.15s;
   -webkit-tap-highlight-color: transparent;
 
   &:hover:not(:disabled) {
-    color: var(--color-text);
-    background: var(
-      --header-icon-hover-bg,
-      color-mix(in srgb, var(--Main) 7%, var(--color-surface) 93%)
-    );
-  }
-
-  &:last-of-type:hover:not(:disabled) {
-    color: var(--Main, #0058bc);
+    opacity: 0.88;
   }
 
   &:focus-visible {
@@ -205,7 +201,7 @@ $pdf-footer-thumb-y: calc((#{$pdf-footer-track-h} - #{$pdf-footer-thumb}) / 2);
 }
 
 .overlay[data-theme='dark'] .pageControls .iosPageNavIconBg {
-  fill: #2d2f32;
+  fill: #3a3e46;
 }
 
 .overlay[data-theme='light'] .pageControls .iosPageNavIconBg {
@@ -213,7 +209,12 @@ $pdf-footer-thumb-y: calc((#{$pdf-footer-track-h} - #{$pdf-footer-thumb}) / 2);
 }
 
 .overlay[data-theme='dark'] .pageControls .iosPageNavIconChevron {
-  fill: #535558;
+  fill: #c6cad2;
+}
+
+.overlay[data-theme='dark'] .topBarIconBtn {
+  background: #3a3e46;
+  color: #c6cad2;
 }
 
 .overlay[data-theme='light'] .pageControls .iosPageNavIconChevron {

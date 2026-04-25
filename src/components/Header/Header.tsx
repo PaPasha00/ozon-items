@@ -55,7 +55,14 @@ export function Header() {
           to="/"
           className={styles.logo}
           aria-label={config.siteName ? `${config.siteName} — на главную` : 'На главную'}
-          onClick={() => requestAnimationFrame(() => scrollAppToTop())}
+          onClick={(e) => {
+            if (location.pathname === '/') {
+              e.preventDefault();
+              scrollAppToTop();
+              return;
+            }
+            requestAnimationFrame(() => scrollAppToTop());
+          }}
         >
           <LogoDeltima />
         </Link>

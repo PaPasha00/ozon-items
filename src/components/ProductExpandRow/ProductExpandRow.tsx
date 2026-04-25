@@ -67,13 +67,20 @@ function IconLinkOut() {
 function IconTelegram() {
   return (
     <svg className={styles.actionGlyph} width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-      <path
-        d="M16.5 4.5L3.5 10.2l4.2 1.2 1.8 4.8 2.2-3.4 3.3 2.4 4.5-9.7Z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinejoin="round"
-      />
-      <path d="M7.7 11.4l7.8-4.9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      <g clipPath="url(#clip0_6_6397)">
+        <path
+          d="M10.3125 12.5L8.125 14.6875L6.875 10.625L3.4375 9.375L16.5625 4.375L14.0625 15.625L9.375 11.25L11.875 9.375"
+          stroke="currentColor"
+          strokeWidth="1.25"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_6_6397">
+          <rect width="15" height="15" fill="white" transform="translate(2.5 2.5)" />
+        </clipPath>
+      </defs>
     </svg>
   );
 }
@@ -166,74 +173,76 @@ export function ProductExpandRow({ product, accordionName, onOpenPdf, onOpenVide
           <Chevron />
         </summary>
         <div className={styles.body}>
-          {description ? <p className={styles.description}>{description}</p> : null}
-          {hasMaterials ? (
-            <div className={styles.actionsBlock}>
-              <ul className={styles.actionStack} aria-label={pc.materialsAriaLabel}>
-                {fileList.map((f) => (
-                  <li key={`pdf-${f.name}`} className={styles.actionItem}>
-                    <button
-                      type="button"
-                      className={styles.actionRow}
-                      onClick={() => onOpenPdf(productId, f.url, f.name)}
-                    >
-                      <span className={styles.actionIcon} aria-hidden>
-                        <IconPdf />
-                      </span>
-                      <span className={styles.actionTextBlock}>
-                        <span className={styles.actionLabel}>{f.name}</span>
-                        {f.meta ? <span className={styles.actionMeta}>{f.meta}</span> : null}
-                      </span>
-                      <RowChevron />
-                    </button>
-                  </li>
-                ))}
-                {videoList.map((v) => (
-                  <li key={`video-${v.name}`} className={styles.actionItem}>
-                    <button
-                      type="button"
-                      className={styles.actionRow}
-                      onClick={() => onOpenVideo(productId, v.url, v.name)}
-                    >
-                      <span className={styles.actionIcon} aria-hidden>
-                        <IconVideo />
-                      </span>
-                      <span className={styles.actionTextBlock}>
-                        <span className={styles.actionLabel}>{v.name}</span>
-                        {v.meta ? <span className={styles.actionMeta}>{v.meta}</span> : null}
-                      </span>
-                      <RowChevron />
-                    </button>
-                  </li>
-                ))}
-                {linkList.map((l) => {
-                  const openIn = l.openIn === 'telegram' ? 'telegram' : 'browser';
-                  const href = productLinkHrefForOpen(l.href, l.openIn);
-                  return (
-                    <li key={`link-${openIn}-${l.href}`} className={styles.actionItem}>
-                      <a
+          <div className={styles.bodyInner}>
+            {description ? <p className={styles.description}>{description}</p> : null}
+            {hasMaterials ? (
+              <div className={styles.actionsBlock}>
+                <ul className={styles.actionStack} aria-label={pc.materialsAriaLabel}>
+                  {fileList.map((f) => (
+                    <li key={`pdf-${f.name}`} className={styles.actionItem}>
+                      <button
+                        type="button"
                         className={styles.actionRow}
-                        href={href}
-                        target={openIn === 'telegram' ? '_self' : '_blank'}
-                        rel="noopener noreferrer"
+                        onClick={() => onOpenPdf(productId, f.url, f.name)}
                       >
                         <span className={styles.actionIcon} aria-hidden>
-                          {openIn === 'telegram' ? <IconTelegram /> : <IconLinkOut />}
+                          <IconPdf />
                         </span>
                         <span className={styles.actionTextBlock}>
-                          <span className={styles.actionLabel}>{l.label}</span>
-                          {l.meta ? <span className={styles.actionMeta}>{l.meta}</span> : null}
+                          <span className={styles.actionLabel}>{f.name}</span>
+                          {f.meta ? <span className={styles.actionMeta}>{f.meta}</span> : null}
                         </span>
                         <RowChevron />
-                      </a>
+                      </button>
                     </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : (
-            <p className={styles.noFiles}>{pc.noMaterials}</p>
-          )}
+                  ))}
+                  {videoList.map((v) => (
+                    <li key={`video-${v.name}`} className={styles.actionItem}>
+                      <button
+                        type="button"
+                        className={styles.actionRow}
+                        onClick={() => onOpenVideo(productId, v.url, v.name)}
+                      >
+                        <span className={styles.actionIcon} aria-hidden>
+                          <IconVideo />
+                        </span>
+                        <span className={styles.actionTextBlock}>
+                          <span className={styles.actionLabel}>{v.name}</span>
+                          {v.meta ? <span className={styles.actionMeta}>{v.meta}</span> : null}
+                        </span>
+                        <RowChevron />
+                      </button>
+                    </li>
+                  ))}
+                  {linkList.map((l) => {
+                    const openIn = l.openIn === 'telegram' ? 'telegram' : 'browser';
+                    const href = productLinkHrefForOpen(l.href, l.openIn);
+                    return (
+                      <li key={`link-${openIn}-${l.href}`} className={styles.actionItem}>
+                        <a
+                          className={styles.actionRow}
+                          href={href}
+                          target={openIn === 'telegram' ? '_self' : '_blank'}
+                          rel="noopener noreferrer"
+                        >
+                          <span className={styles.actionIcon} aria-hidden>
+                            {openIn === 'telegram' ? <IconTelegram /> : <IconLinkOut />}
+                          </span>
+                          <span className={styles.actionTextBlock}>
+                            <span className={styles.actionLabel}>{l.label}</span>
+                            {l.meta ? <span className={styles.actionMeta}>{l.meta}</span> : null}
+                          </span>
+                          <RowChevron />
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : (
+              <p className={styles.noFiles}>{pc.noMaterials}</p>
+            )}
+          </div>
         </div>
       </details>
     </div>

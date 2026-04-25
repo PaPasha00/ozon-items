@@ -11,14 +11,13 @@
   box-shadow: none;
 }
 
-.details[open] .summary {
-  padding-top: 1.05rem;
-  padding-bottom: 0.9rem;
+.details[open] .body {
+  grid-template-rows: 1fr;
 }
 
-.details[open] .body {
-  padding-top: 0.45rem;
-  padding-bottom: 1.45rem;
+.details[open] .bodyInner {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .details[open] .chevron {
@@ -135,7 +134,18 @@
   box-sizing: border-box;
   margin: 0;
   max-width: 100%;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
+}
+
+.bodyInner {
+  min-height: 0;
+  overflow: hidden;
   padding: 0.35rem 1rem 1.2rem 1.15rem;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .description {
@@ -152,7 +162,7 @@
   max-width: 100%;
 }
 
-.body > .actionsBlock:first-child {
+.bodyInner > .actionsBlock:first-child {
   border-top: none;
   padding-top: 0;
 }

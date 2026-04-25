@@ -404,6 +404,15 @@
   transform: translateY(0) rotate(225deg);
 }
 
+.faqDetails[open] .faqAnswerWrap {
+  grid-template-rows: 1fr;
+}
+
+.faqDetails[open] .faqAnswer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .faqSummary {
   display: flex;
   flex-direction: row;
@@ -444,6 +453,11 @@
 }
 
 .faqAnswer {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
   box-sizing: border-box;
   margin: 0;
   padding: 1rem 1.2rem 1.2rem 1.2rem;
@@ -452,4 +466,10 @@
   color: var(--color-text-muted);
   border-top: 1px solid var(--color-border);
   background: var(--color-surface);
+}
+
+.faqAnswerWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.28s ease;
 }

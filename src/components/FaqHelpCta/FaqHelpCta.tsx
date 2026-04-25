@@ -23,13 +23,15 @@ export function FaqHelpCta() {
           <span>{helpCta.toggleLabel}</span>
           <span className={styles.chevron} aria-hidden />
         </summary>
-        <div className={styles.steps}>
-          {helpCta.steps.map((text, i) => (
-            <div key={i} className={styles.step}>
-              <span className={styles.stepNum}>{i + 1}</span>
-              <p className={styles.stepText}>{text}</p>
-            </div>
-          ))}
+        <div className={styles.stepsWrap}>
+          <div className={styles.steps}>
+            {helpCta.steps.map((text, i) => (
+              <div key={i} className={styles.step}>
+                <span className={styles.stepNum}>{i + 1}</span>
+                <p className={styles.stepText}>{text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </details>
     </div>

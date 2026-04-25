@@ -302,7 +302,9 @@ export function Home() {
                       <span className={styles.faqSummaryText}>{item.question}</span>
                       <span className={styles.faqSummaryChevron} aria-hidden />
                     </summary>
-                    <div className={styles.faqAnswer}>{item.answer}</div>
+                    <div className={styles.faqAnswerWrap}>
+                      <div className={styles.faqAnswer}>{item.answer}</div>
+                    </div>
                   </details>
                 </div>
               ))}
