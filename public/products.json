@@ -42,6 +42,13 @@
         "details": "PDF • 3 стр."
       }
     ],
+    "videos": [
+      {
+        "file": "Моющий пылесос_обзор.mp4",
+        "meta": "Инструкция по работе",
+        "details": "MP4 • 3 мин"
+      }
+    ],
     "article": "",
     "showOnSite": true
   },
